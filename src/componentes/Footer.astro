@@ -1,0 +1,47 @@
+---
+import { iglesia, ruta, correo, facebook, instagram, youtube, mapaUrl } from '../lib/datos';
+import Firma from './Firma.astro';
+import MarcaAgua from './MarcaAgua.astro';
+import Icono from './Icono.astro';
+---
+<footer class="footer modo-noche">
+  <MarcaAgua />
+  <div class="wrap">
+    <div class="cols">
+      <div class="col-firma">
+        <Firma variante="vertical" />
+        <p class="acento" style="font-size:1.75rem;color:var(--tn-hueso)">aquí hay lugar para ti</p>
+      </div>
+      <section aria-labelledby="pie-reuniones">
+        <h2 id="pie-reuniones">Te esperamos</h2>
+        <ul>
+          {iglesia.reuniones.map((r) => <li class="reunion"><span>{r.dia}</span><b>{r.hora}</b><span>{r.nombre}</span></li>)}
+        </ul>
+      </section>
+      <section aria-labelledby="pie-donde">
+        <h2 id="pie-donde">Dónde estamos</h2>
+        <address>{iglesia.direccion.texto}<br />{iglesia.direccion.comuna}, {iglesia.nombre.region}</address>
+        <p style="margin-top:var(--s-3)"><a class="btn btn-texto" href={mapaUrl} target="_blank" rel="noopener" style="color:var(--tn-celeste)">Abrir en el mapa</a></p>
+      </section>
+      <section aria-labelledby="pie-redes">
+        <h2 id="pie-redes">Síguenos</h2>
+        <div class="redes">
+          <a class="chip-red" href={facebook.url} target="_blank" rel="noopener"><Icono nombre="facebook" /><span class="sr-only">Facebook</span></a>
+          <a class="chip-red" href={instagram.url} target="_blank" rel="noopener"><Icono nombre="instagram" /><span class="sr-only">Instagram</span></a>
+          <a class="chip-red" href={youtube.url} target="_blank" rel="noopener"><Icono nombre="youtube" /><span class="sr-only">YouTube</span></a>
+        </div>
+        {correo && <p style="margin-top:var(--s-4)"><a class="texto" href={`mailto:${correo}`}>{correo}</a></p>}
+        <p style="margin-top:var(--s-4)"><a class="texto" href={instagram.mensaje_url} target="_blank" rel="noopener">Escríbenos por Instagram</a></p>
+      </section>
+    </div>
+    <div class="base">
+      <p>© {new Date().getFullYear()} {iglesia.nombre.marca} · {iglesia.nombre.comuna}, {iglesia.nombre.pais}</p>
+      <ul>
+        <li><a href={ruta('/ministerios')}>Ministerios</a></li>
+        <li><a href={ruta('/primer-paso')}>Acepté a Jesús</a></li>
+        <li><a href={ruta('/ofrendas')}>Ofrendas</a></li>
+        <li><a href={ruta('/contacto')}>Contacto</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import MarcaAgua from '../componentes/MarcaAgua.astro';
+import Marco from '../componentes/Marco.astro';
+import Rayos from '../componentes/Rayos.astro';
+import { ruta } from '../lib/datos';
+---
+<Base titulo="Página no encontrada" descripcion="Esta página no existe." sobreNoche noindex>
+  <section class="modo-noche perdida" aria-labelledby="t-404">
+    <Rayos />
+    <MarcaAgua />
+    <Marco />
+    <div class="wrap encabezado centro">
+      <p class="kicker">Error 404</p>
+      <h1 class="display t-hero" id="t-404">Señal <span class="contorno">perdida</span></h1>
+      <p class="acento frase">pero aquí hay lugar para ti</p>
+      <p class="lead" style="margin-inline:auto;text-align:center;margin-top:var(--s-4)">La página que buscas no existe o cambió de dirección.</p>
+      <div class="botones" style="justify-content:center;margin-top:var(--s-6)">
+        <a class="btn btn-primario" href={ruta('/')}>Volver al inicio</a>
+        <a class="btn btn-secundario" href={ruta('/visitanos')}>Horarios y dirección</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .perdida { min-height: 100svh; display: grid; place-items: center; position: relative; overflow: hidden; isolation: isolate; padding-block: 8rem 5rem; }
+  .perdida .wrap { position: relative; z-index: 2; }
+  .perdida :global(.marco-tx) { top: calc(4rem + var(--s-3)); }
+  @media (min-width: 1024px) { .perdida :global(.marco-tx) { top: calc(4.75rem + var(--s-4)); } }
+</style>

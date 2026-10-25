@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+import EncabezadoSeccion from '../componentes/EncabezadoSeccion.astro';
+import MarcaAgua from '../componentes/MarcaAgua.astro';
+import Marco from '../componentes/Marco.astro';
+import Rayos from '../componentes/Rayos.astro';
+import { iglesia, ruta, instagram } from '../lib/datos';
+const pp = iglesia.primer_paso;
+---
+<Base titulo="Acepté a Jesús" descripcion={`¿Aceptaste a Jesús? Qué significa, el bautismo y cómo seguir creciendo acompañado en ${iglesia.nombre.marca}, ${iglesia.nombre.comuna}.`}>
+
+  <section class="seccion modo-papel intro" aria-labelledby="t-pp">
+    <MarcaAgua color="azul" />
+    <div class="wrap">
+      <EncabezadoSeccion kicker="Primer paso" titulo="Tu nueva vida empieza hoy" frase="y no la caminas solo" nivel={1} tamano="t-h1" id="t-pp" />
+      <p class="lead rv" style="margin-top:var(--s-5)">Aceptar a Jesús es la decisión más importante de tu vida. Aquí te contamos qué significa y cuáles son los pasos que siguen.</p>
+    </div>
+  </section>
+
+  <section class="seccion modo-papel papel-2" aria-label="Pasos">
+    <div class="wrap">
+      <ol class="pasos" role="list">
+        {pp.pasos.map((p, i) => (
+          <li class="paso rv">
+            <span class="num" aria-hidden="true">{i + 1}</span>
+            <div>
+              <h2 class="display t-h3">{p.t}</h2>
+              <p>{p.x}</p>
+              <figure class="verso">
+                <blockquote><p>«{p.v}»</p></blockquote>
+                <figcaption class="micro">{p.c}</figcaption>
+              </figure>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="seccion modo-noche" aria-labelledby="t-orar">
+    <Rayos />
+    <MarcaAgua />
+    <Marco />
+    <div class="wrap encabezado centro">
+      <p class="kicker rv">Una oración</p>
+      <h2 class="display t-h2 rv" id="t-orar" style="--rv-i:1">Si quieres, ora así</h2>
+      <p class="oracion rv" style="--rv-i:2">{pp.oracion}</p>
+      <div class="regla rv" style="--rv-i:3;margin-top:var(--s-5)"></div>
+      <p class="lead rv" style="--rv-i:4;margin-inline:auto;text-align:center">Si hiciste esta oración, cuéntanos. Queremos acompañarte.</p>
+      <div class="botones rv" style="--rv-i:5;justify-content:center;margin-top:var(--s-5)">
+        <a class="btn btn-primario" href={instagram.mensaje_url} target="_blank" rel="noopener">Contarle a la iglesia</a>
+        <a class="btn btn-secundario" href={ruta('/visitanos')}>Visítanos</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .intro { padding-top: calc(var(--seccion-y) + 4rem); min-height: 56vh; display: grid; align-items: end; }
+  .verso { margin-top: var(--s-4); padding-left: var(--s-4); border-left: 3px solid var(--tn-acento); }
+  .verso p { font-family: var(--f-acento); font-style: italic; font-weight: 500; font-size: 1.25rem; line-height: 1.4; color: var(--tn-logo); }
+  .verso figcaption { color: var(--tn-azul-tinta); margin-top: var(--s-2); }
+  .oracion { font-family: var(--f-acento); font-style: italic; font-weight: 500; font-size: clamp(1.375rem, 1.1rem + 1vw, 1.875rem); line-height: 1.45; color: var(--tn-hueso); max-width: 44rem; margin: var(--s-5) auto 0; text-align: center; }
+</style>

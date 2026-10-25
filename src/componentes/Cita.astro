@@ -1,0 +1,8 @@
+---
+interface Props { texto: string; cita: string; grande?: boolean; centro?: boolean }
+const { texto, cita, grande = false, centro = false } = Astro.props;
+---
+<figure class:list={['cita', { grande, centro }]}>
+  <blockquote class="rv"><p>«{texto}»</p></blockquote>
+  <figcaption class="rv" style="--rv-i:1"><span class="kicker">{cita}</span></figcaption>
+</figure>

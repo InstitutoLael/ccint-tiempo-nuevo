@@ -1,0 +1,6 @@
+---
+import { ruta } from '../lib/datos';
+interface Props { color?: 'blanco' | 'azul' }
+const { color = 'blanco' } = Astro.props;
+---
+<img class="marca-agua" src={ruta(`/logo/isotipo-${color}.svg`)} alt="" aria-hidden="true" width="800" height="800" decoding="async" />

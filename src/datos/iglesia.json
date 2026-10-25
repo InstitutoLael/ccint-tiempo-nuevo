@@ -1,0 +1,371 @@
+{
+  "_nota": "Datos editables del sitio. Todo texto que cambie con el tiempo vive aquí, no en los componentes. Lo marcado con \"confirmar\": true está pendiente de verificar con la iglesia (ver PENDIENTES.md).",
+  "nombre": {
+    "corto": "Tiempo Nuevo",
+    "marca": "CCINT Tiempo Nuevo",
+    "legal": {
+      "valor": "Iglesia Evangélica Integral Tiempo Nuevo",
+      "confirmar": true
+    },
+    "comuna": "Calera de Tango",
+    "region": "Región Metropolitana",
+    "pais": "Chile"
+  },
+  "lema": "Aquí hay lugar para ti",
+  "frases": [
+    "Somos uno. Somos familia. Somos iglesia.",
+    "Bienvenidos a nuestra transmisión",
+    "En breve comenzamos",
+    "Gracias por acompañarnos hoy",
+    "¡Dios te bendiga!"
+  ],
+  "pastores": {
+    "presentacion": "Pastores David Núñez A. y Rosita Jara C.",
+    "personas": [
+      {
+        "nombre": "David Núñez A.",
+        "rol": "Pastor"
+      },
+      {
+        "nombre": "Rosita Jara C.",
+        "rol": "Pastora"
+      }
+    ],
+    "foto": "pastores.jpg",
+    "foto_nota": "TEMPORAL: es la foto del sitio anterior. Pendiente: foto nueva de los pastores. Cuando llegue, dejarla en src/assets/fotos/ y escribir aquí el nombre del archivo (ej. \"pastores-2026.jpg\").",
+    "texto": {
+      "valor": "Pastorean Tiempo Nuevo en Calera de Tango. Si quieres conversar, pedir oración o saber cómo servir en la iglesia, escríbeles: siempre hay tiempo para una conversación.",
+      "confirmar": true
+    },
+    "cita": {
+      "texto": "Dios viene a restituir nuestra identidad de hijos.",
+      "autor": "Pastor David Núñez A."
+    }
+  },
+  "familia_espiritual": {
+    "_nota": "CCINT = Centro Cristiano Internacional. No usar la expresión «iglesia madre». Fotos tomadas de ccint.cl y de YouTube de CCI: pedir permiso a CCI antes de publicar.",
+    "red": "Centro Cristiano Internacional",
+    "red_sigla": "CCI",
+    "red_url": "https://ccint.cl/",
+    "red_lema": "Creemos en nuevos comienzos",
+    "fundacion": 1999,
+    "pastores_generales": [
+      {
+        "nombre": "Billy Bunster",
+        "titulo": "Apóstol",
+        "foto": "apostol-billy-bunster.jpg",
+        "instagram": "https://www.instagram.com/billy_bunster/"
+      },
+      {
+        "nombre": "Claudia Bunster",
+        "titulo": "Pastora",
+        "foto": "pastora-claudia-bunster.jpg",
+        "instagram": "https://www.instagram.com/claudiadebunster/"
+      }
+    ],
+    "foto_predicando": "apostol-billy-predicando.jpg",
+    "texto": "El «CCINT» de nuestro nombre viene de Centro Cristiano Internacional, la familia de iglesias que fundaron en 1999 el Apóstol Billy Bunster y la pastora Claudia Bunster, nuestros pastores generales. Su lema también es el nuestro."
+  },
+  "direccion": {
+    "texto": "Avenida Calera de Tango, paradero 7 ½",
+    "corta": "Av. Calera de Tango, paradero 7 ½",
+    "comuna": "Calera de Tango",
+    "mapa_url": "https://maps.app.goo.gl/btfzkVHF91SRTCpW9",
+    "qr_url": "https://me-qr.com/iAaUt02b",
+    "lat": -33.6298654,
+    "lng": -70.7647277,
+    "_nota_coordenadas": "Coordenadas tomadas del templo tal como aparece en OpenStreetMap («Centro Cristiano Internacional Tiempo Nuevo»).",
+    "como_llegar": {
+      "micro": "Toma cualquier micro que recorra Avenida Calera de Tango y bájate en el paradero 7 o en el 8. El templo queda entre los dos.",
+      "auto": "Avanza por Avenida Calera de Tango. Viniendo desde los paraderos más bajos (lado San Bernardo), el templo queda a mano izquierda, pasado el paradero 7, un poco hacia adentro de la avenida.",
+      "referencia": "Si te pierdes, abre el mapa en tu celular: el templo aparece como «Centro Cristiano Internacional Tiempo Nuevo».",
+      "estacionamiento": {
+        "valor": "Sí, hay estacionamiento.",
+        "confirmar": false
+      },
+      "confirmar": true
+    }
+  },
+  "reuniones": [
+    {
+      "id": "viernes",
+      "dia": "Viernes",
+      "dia_corto": "Vie",
+      "dia_semana": 5,
+      "hora": "20:00",
+      "nombre": "Reunión general",
+      "descripcion": "Enseñanza y discipulado para toda la iglesia. No se transmite.",
+      "transmite": false
+    },
+    {
+      "id": "oracion-domingo",
+      "dia": "Domingo",
+      "dia_corto": "Dom",
+      "dia_semana": 0,
+      "hora": "09:00",
+      "nombre": "Oración",
+      "descripcion": "Antes del culto, nos juntamos a orar.",
+      "transmite": false
+    },
+    {
+      "id": "culto-domingo",
+      "dia": "Domingo",
+      "dia_corto": "Dom",
+      "dia_semana": 0,
+      "hora": "10:30",
+      "nombre": "Culto",
+      "descripcion": "Nuestra reunión principal: alabanza, Palabra y comunidad.",
+      "principal": true,
+      "transmite": true
+    }
+  ],
+  "duracion_culto": "Cerca de dos horas y media",
+  "zona_horaria": "America/Santiago",
+  "transmision": {
+    "plataforma_principal": "Facebook",
+    "facebook_url": "https://www.facebook.com/iglesia1tiempo1nuevo",
+    "youtube_canal_url": "https://www.youtube.com/channel/UCWFYvVktvmoRO_n-bYv8DFw",
+    "youtube_canal_id": "UCWFYvVktvmoRO_n-bYv8DFw",
+    "minutos_antes_en_vivo": 10,
+    "duracion_estimada_min": 150
+  },
+  "redes": [
+    {
+      "red": "Facebook",
+      "usuario": "Iglesia Tiempo Nuevo (Ccint)",
+      "url": "https://www.facebook.com/iglesia1tiempo1nuevo",
+      "mensaje_url": "https://m.me/iglesia1tiempo1nuevo"
+    },
+    {
+      "red": "Instagram",
+      "usuario": "@ccint_tiemponuevo",
+      "url": "https://www.instagram.com/ccint_tiemponuevo/",
+      "mensaje_url": "https://ig.me/m/ccint_tiemponuevo"
+    },
+    {
+      "red": "YouTube",
+      "usuario": "Tiempo Nuevo",
+      "url": "https://www.youtube.com/channel/UCWFYvVktvmoRO_n-bYv8DFw"
+    }
+  ],
+  "contacto": {
+    "correo": {
+      "valor": null,
+      "_nota": "La iglesia tiene igltiemponuevo@gmail.com pero no lo usa. No publicarlo. Si algún día lo usan, ponerlo aquí y vuelve a aparecer en el sitio."
+    },
+    "_nota": "La iglesia ya no tiene WhatsApp. El contacto directo es por mensaje de Instagram o Facebook, o por correo.",
+    "formulario_endpoint": null,
+    "_nota_formulario": "Sin servidor ni correo en uso, el formulario de oración copia la petición y abre un mensaje directo de Instagram. Si más adelante se usa Formspree o una función de Cloudflare, poner aquí la URL de envío y el formulario la usará."
+  },
+  "ofrendas": {
+    "mostrar_en_sitio": true,
+    "titulo": "Ofrendas",
+    "bajada": "Si deseas transferir, copia estos datos:",
+    "banco": "BancoEstado",
+    "tipo_cuenta": "Cuenta Corriente",
+    "nombre": "Iglesia Tiempo Nuevo",
+    "rut": "65.171.004-9",
+    "numero_cuenta": "036700019696",
+    "correo": "iei.tiemponuevo@gmail.com",
+    "qr_url": "https://me-qr.com/C94neKVn",
+    "versiculo": {
+      "texto": "Honra al Señor con tus bienes y con las primicias de todos tus frutos; entonces tus graneros se llenarán con abundancia y tus lagares rebosarán de mosto.",
+      "cita": "Proverbios 3:9-10"
+    }
+  },
+  "ministerios": [
+    {
+      "nombre": "Escuela Bíblica",
+      "para": "Niños de 5 a 9 años",
+      "texto": "Como una escuela dominical: aprenden de Jesús con historias, juegos y canciones, a su medida.",
+      "cuando": "Domingos, durante el culto"
+    },
+    {
+      "nombre": "Preadolescentes",
+      "para": "De 9 a 12 años",
+      "texto": "Un espacio propio para los que ya no son tan niños, con amigos y preguntas de verdad.",
+      "cuando": "Domingos, durante el culto"
+    },
+    {
+      "nombre": "Adolescentes",
+      "para": "De 12 a 17 años",
+      "texto": "Fe, amistad y conversaciones honestas para la etapa más intensa. Se juntan con los jóvenes.",
+      "cuando": "Viernes por medio, 20:00 hrs"
+    },
+    {
+      "nombre": "Jóvenes",
+      "para": "Jóvenes y jóvenes adultos",
+      "texto": "Alabanza, Palabra y convivencia, junto a los adolescentes. Invita a un amigo.",
+      "cuando": "Viernes por medio, 20:00 hrs"
+    },
+    {
+      "nombre": "Mujeres",
+      "para": "Mujeres de todas las edades",
+      "texto": "Mujeres que crecen juntas en la Palabra y la oración.",
+      "cuando": "Todos los lunes, 18:00 hrs"
+    },
+    {
+      "nombre": "Varones",
+      "para": "Hombres de todas las edades",
+      "texto": "Hombres firmes en Cristo, en la familia y en el trabajo.",
+      "cuando": "Sábados por medio, 18:00 hrs"
+    },
+    {
+      "nombre": "Matrimonios",
+      "para": "Parejas",
+      "texto": "De vez en cuando hacemos cultos especiales para matrimonios, para edificar la casa sobre la roca.",
+      "cuando": {
+        "valor": "Algunas veces al año",
+        "confirmar": true
+      }
+    },
+    {
+      "nombre": "Danza Exaltarte",
+      "para": "Ministerio de danza",
+      "texto": "Adoración con movimiento. Los martes comparten una reflexión en grupo y preparan coreografías para el culto y fechas especiales.",
+      "logo": null,
+      "logo_nota": "Pendiente: logo de Exaltarte (SVG o PNG con fondo transparente).",
+      "cuando": "Reflexión los martes · Ensayos sábados por medio, 10:00 hrs"
+    },
+    {
+      "nombre": "Servidores",
+      "para": "Quienes sirven en cada reunión",
+      "texto": "Reciben en la puerta, ordenan, acomodan y cuidan los detalles para que todos se sientan en casa.",
+      "cuando": "En cada reunión"
+    }
+  ],
+  "creemos": {
+    "mision": "Existimos para reconciliar a las personas con Dios, creyendo que en Cristo hay un nuevo comienzo para cada vida.",
+    "afirmaciones": [
+      {
+        "t": "La Palabra",
+        "x": "La Biblia es la Palabra de Dios y la guía para nuestra vida diaria."
+      },
+      {
+        "t": "Jesús",
+        "x": "Jesús murió y resucitó por nosotros. En Él hay perdón y vida nueva."
+      },
+      {
+        "t": "La presencia",
+        "x": "Buscamos a Dios en adoración, con todo el corazón."
+      },
+      {
+        "t": "El Espíritu Santo",
+        "x": "Creemos en su obra y en su poder hoy."
+      },
+      {
+        "t": "La familia",
+        "x": "La iglesia es una familia: nadie tiene que caminar solo."
+      }
+    ],
+    "confirmar": true
+  },
+  "historia": {
+    "texto": [
+      "Tiempo Nuevo es una iglesia cristiana evangélica en Calera de Tango, parte de la familia de Centro Cristiano Internacional.",
+      "Nos reunimos en un templo sencillo, de madera y luces azules, en plena Avenida Calera de Tango. A la entrada, un muro de listones dice lo que queremos que sienta cada persona que llega: aquí hay lugar para ti."
+    ],
+    "anio_fundacion": {
+      "valor": null,
+      "confirmar": true
+    },
+    "aniversario": {
+      "valor": null,
+      "confirmar": true
+    },
+    "confirmar": true
+  },
+  "primera_vez": [
+    {
+      "t": "Llegas",
+      "x": "Te recibimos en la puerta. Puedes sentarte donde quieras."
+    },
+    {
+      "t": "Alabamos",
+      "x": "Cantamos juntos. Si no te sabes las canciones, la letra está en pantalla."
+    },
+    {
+      "t": "Escuchamos la Palabra",
+      "x": "Una prédica clara y práctica de la Biblia, pensada para la vida de todos los días."
+    },
+    {
+      "t": "Oramos",
+      "x": "Si necesitas oración, puedes pedirla al final. Nadie te va a obligar a pasar adelante."
+    },
+    {
+      "t": "Compartimos",
+      "x": "Después del culto siempre hay tiempo para saludarse y conversar.",
+      "confirmar": true
+    }
+  ],
+  "preguntas": [
+    {
+      "q": "¿Tengo que vestirme de alguna forma especial?",
+      "a": "No. Ven como te sientas cómodo. Lo importante es que vengas."
+    },
+    {
+      "q": "¿Cuánto dura la reunión?",
+      "a": "El culto del domingo dura cerca de dos horas y media, entre alabanza, Palabra y oración."
+    },
+    {
+      "q": "¿Puedo ir con mis hijos?",
+      "a": "Sí. Los niños de 5 a 9 años tienen su Escuela Bíblica, con enseñanza a su medida."
+    },
+    {
+      "q": "Nunca he ido a una iglesia evangélica, ¿me voy a sentir fuera de lugar?",
+      "a": "Muchas personas llegaron así. Nadie te va a pedir que hagas algo que no quieras. Puedes simplemente acompañarnos."
+    },
+    {
+      "q": "¿Tengo que dar ofrenda?",
+      "a": "No. Si nos visitas, eres nuestro invitado. La ofrenda es voluntaria y es parte de la adoración de quienes forman parte de la iglesia."
+    },
+    {
+      "q": "¿Hay estacionamiento?",
+      "a": "Sí, hay estacionamiento."
+    },
+    {
+      "q": "¿Y si no puedo ir en persona?",
+      "a": "Transmitimos el culto del domingo en vivo por Facebook y YouTube."
+    }
+  ],
+  "primer_paso": {
+    "pasos": [
+      {
+        "t": "Qué significa",
+        "x": "Es creer que Jesús murió y resucitó por ti, pedirle perdón y entregarle tu vida. Desde ese momento eres hijo de Dios y comienza una vida nueva.",
+        "v": "Que si confesares con tu boca que Jesús es el Señor, y creyeres en tu corazón que Dios le levantó de los muertos, serás salvo.",
+        "c": "Romanos 10:9"
+      },
+      {
+        "t": "Bautismo",
+        "x": "El bautismo en agua es un paso de obediencia: declaras públicamente que ahora sigues a Cristo. Celebramos bautismos más o menos una vez al año; escríbenos y te acompañamos a prepararte.",
+        "v": "El que creyere y fuere bautizado, será salvo.",
+        "c": "Marcos 16:16"
+      },
+      {
+        "t": "Crecer acompañado",
+        "x": "Te acompañamos a conocer la Biblia, aprender a orar y encontrar tu lugar en la iglesia, junto a otros que van por el mismo camino.",
+        "v": "Por tanto, id, y haced discípulos a todas las naciones.",
+        "c": "Mateo 28:19"
+      }
+    ],
+    "oracion": "Señor Jesús, reconozco que te necesito. Creo que moriste en la cruz por mis pecados y que resucitaste. Te pido perdón y te abro mi corazón. Desde hoy quiero seguirte. Gracias por hacerme tu hijo. Amén."
+  },
+  "versiculos": {
+    "lema": {
+      "texto": "He aquí que yo hago cosa nueva; pronto saldrá a luz; ¿no la conoceréis?",
+      "cita": "Isaías 43:19",
+      "confirmar": true
+    },
+    "version": "Reina-Valera 1960"
+  },
+  "seo": {
+    "titulo": "CCINT Tiempo Nuevo · Iglesia en Calera de Tango",
+    "descripcion": "Iglesia cristiana en Calera de Tango. Te esperamos los viernes a las 20:00 y los domingos a las 09:00 (oración) y 10:30 (culto). Aquí hay lugar para ti.",
+    "dominio": {
+      "valor": null,
+      "confirmar": true,
+      "_nota": "Sugerencias: tiemponuevo.cl · ccinttiemponuevo.cl (registrar en NIC Chile)"
+    }
+  }
+}

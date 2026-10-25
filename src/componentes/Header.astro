@@ -1,0 +1,53 @@
+---
+import { iglesia, ruta, facebook, instagram } from '../lib/datos';
+import Firma from './Firma.astro';
+import PildoraVivo from './PildoraVivo.astro';
+import MarcaAgua from './MarcaAgua.astro';
+import Icono from './Icono.astro';
+interface Props { sobreNoche?: boolean }
+const { sobreNoche = false } = Astro.props;
+const actual = Astro.url.pathname.replace(/\/$/, '');
+const enlaces = [
+  ['Visítanos', '/visitanos'], ['En vivo', '/en-vivo'], ['Nosotros', '/nosotros'], ['Ofrendas', '/ofrendas'], ['Contacto', '/contacto'],
+];
+const activo = (p: string) => (actual === ruta(p) ? 'page' : undefined);
+---
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class:list={['header', { 'sobre-noche': sobreNoche }]} data-header>
+  <div class="wrap">
+    <Firma color="doble" />
+    <nav class="nav" aria-label="Principal">
+      <ul>{enlaces.map(([t, p]) => <li><a href={ruta(p)} aria-current={activo(p)}>{t}</a></li>)}</ul>
+    </nav>
+    <PildoraVivo class="vivo-header" />
+    <a class="btn btn-primario btn-header" href={ruta('/visitanos#como-llegar')}>Cómo llegar</a>
+    <button class="boton-menu" type="button" aria-expanded="false" aria-controls="menu-movil" data-menu-abrir>
+      <span class="lineas" aria-hidden="true"><span></span><span></span></span>
+      <span class="sr-only">Abrir menú</span>
+    </button>
+  </div>
+</header>
+
+<div class="menu-movil modo-noche" id="menu-movil" role="dialog" aria-modal="true" aria-label="Menú" hidden data-menu>
+  <MarcaAgua />
+  <div class="cabeza">
+    <Firma />
+    <button class="cerrar" type="button" data-menu-cerrar><Icono nombre="cerrar" /><span class="sr-only">Cerrar menú</span></button>
+  </div>
+  <nav aria-label="Menú móvil">
+    <ul>
+      <li style="--i:0"><a href={ruta('/')} aria-current={activo('/')}>Inicio</a></li>
+      {enlaces.map(([t, p], i) => <li style={`--i:${i + 1}`}><a href={ruta(p)} aria-current={activo(p)}>{t}</a></li>)}
+    </ul>
+  </nav>
+  <div class="pie">
+    <div class="horarios-mini">
+      {iglesia.reuniones.map((r) => <p><b>{r.dia} {r.hora}</b> · {r.nombre}</p>)}
+    </div>
+    <div class="redes footer-redes" style="display:flex;gap:var(--s-3)">
+      <a class="chip-red" href={facebook.url} target="_blank" rel="noopener"><Icono nombre="facebook" /><span class="sr-only">Facebook</span></a>
+      <a class="chip-red" href={instagram.url} target="_blank" rel="noopener"><Icono nombre="instagram" /><span class="sr-only">Instagram</span></a>
+    </div>
+    <a class="btn btn-primario" href={ruta('/visitanos#como-llegar')}>Cómo llegar</a>
+  </div>
+</div>

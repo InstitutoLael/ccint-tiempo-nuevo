@@ -1,0 +1,14 @@
+---
+// Kicker + titular Anton + frase Playfair: la firma tipográfica de la iglesia.
+interface Props {
+  kicker?: string; numero?: string; titulo?: string; frase?: string;
+  nivel?: 1 | 2 | 3; tamano?: 't-hero' | 't-h1' | 't-h2' | 't-h3'; alineacion?: 'izquierda' | 'centro'; id?: string;
+}
+const { kicker, numero, titulo, frase, nivel = 2, tamano = 't-h2', alineacion = 'izquierda', id } = Astro.props;
+const H = `h${nivel}` as 'h1' | 'h2' | 'h3';
+---
+<header class:list={['encabezado', { centro: alineacion === 'centro' }]}>
+  {kicker && <p class="kicker rv">{numero ? `${numero} · ${kicker}` : kicker}</p>}
+  <H class={`display titulo ${tamano} rv`} id={id} style="--rv-i:1">{titulo}<slot name="titulo" /></H>
+  {frase && <p class="acento frase rv" style="--rv-i:2">{frase}</p>}
+</header>

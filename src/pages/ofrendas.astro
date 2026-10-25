@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import EncabezadoSeccion from '../componentes/EncabezadoSeccion.astro';
+import DatosOfrenda from '../componentes/DatosOfrenda.astro';
+import Cita from '../componentes/Cita.astro';
+import MarcaAgua from '../componentes/MarcaAgua.astro';
+import { Image } from 'astro:assets';
+import logo from '../assets/logo-completo-color.png';
+import { iglesia, ruta, instagram, facebook } from '../lib/datos';
+const o = iglesia.ofrendas;
+---
+<Base titulo="Ofrendas" descripcion={`Datos para ofrendar por transferencia a ${iglesia.nombre.marca}, iglesia en ${iglesia.nombre.comuna}. ${o.banco}, ${o.tipo_cuenta}.`}>
+
+  <section class="seccion modo-papel ofrendas" aria-labelledby="t-ofr">
+    <MarcaAgua color="azul" />
+    <div class="wrap">
+      <EncabezadoSeccion kicker="Ofrendas" titulo="Dar es adorar" frase="gracias por sembrar en esta casa" nivel={1} tamano="t-h1" id="t-ofr" />
+      <div class="ofr-grid">
+        <div>
+          <p class="bajada rv">{o.bajada}</p>
+          <DatosOfrenda />
+        </div>
+        <div class="ofr-qr">
+          <div class="qr grande rv">
+            <Image class="logo" src={logo} alt={iglesia.nombre.marca} width={440} loading="lazy" />
+            <div class="marco-qr"><img src={ruta('/qr/qr-ofrendas.png')} alt="Código QR con los datos de transferencia" width="224" height="224" /></div>
+            <p>Escanea y copia los datos</p>
+            <p class="acento bendiga">¡Dios te bendiga!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion modo-noche" aria-label="Versículo">
+    <MarcaAgua />
+    <div class="wrap">
+      <Cita texto={o.versiculo.texto} cita={o.versiculo.cita} />
+    </div>
+  </section>
+
+  <section class="seccion modo-papel papel-2 nota-sec">
+    <div class="wrap cuerpo">
+      <p class="rv">La ofrenda es voluntaria y es parte de la adoración de quienes forman parte de la iglesia. Si nos visitas, eres nuestro invitado: no tienes que dar nada.</p>
+      <p class="rv">Si necesitas un comprobante o tienes dudas, escríbenos por <a class="enlace" href={instagram.mensaje_url} target="_blank" rel="noopener">Instagram</a> o <a class="enlace" href={facebook.mensaje_url} target="_blank" rel="noopener">Facebook</a>.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .ofrendas { padding-top: calc(var(--seccion-y) + 4rem); }
+  .ofr-grid { display: grid; gap: var(--s-8); margin-top: var(--s-7); align-items: start; }
+  .bajada { font-weight: 700; font-size: var(--t-lead); color: var(--tn-azul-tinta); margin-bottom: var(--s-5); }
+  .ofr-qr { display: grid; justify-items: center; }
+  .ofr-qr .logo { width: 13.75rem; margin-bottom: var(--s-4); }
+  .bendiga { color: var(--tn-logo); font-size: 2.25rem; margin-top: var(--s-1); }
+  @media (min-width: 1024px) { .ofr-grid { grid-template-columns: 7fr 5fr; gap: var(--s-9); } }
+  @media (max-width: 767px) { .ofr-qr .logo { display: none; } }
+  .nota-sec { padding-block: var(--s-8); }
+</style>

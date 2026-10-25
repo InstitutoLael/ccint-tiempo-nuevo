@@ -1,0 +1,140 @@
+---
+import Base from '../layouts/Base.astro';
+import EncabezadoSeccion from '../componentes/EncabezadoSeccion.astro';
+import TarjetaHorario from '../componentes/TarjetaHorario.astro';
+import Mapa from '../componentes/Mapa.astro';
+import MarcaAgua from '../componentes/MarcaAgua.astro';
+import Marco from '../componentes/Marco.astro';
+import Rayos from '../componentes/Rayos.astro';
+import Icono from '../componentes/Icono.astro';
+import { iglesia, ruta, valor, instagram } from '../lib/datos';
+
+const { direccion: d } = iglesia;
+const llegar = d.como_llegar;
+const estacionamiento = valor(llegar.estacionamiento);
+// Las preguntas sin respuesta confirmada no se publican (quedan en PENDIENTES.md).
+const preguntas = iglesia.preguntas.filter((p) => p.a);
+---
+<Base titulo="Visítanos" descripcion={`Horarios, cómo llegar y qué esperar en tu primera visita a ${iglesia.nombre.marca}, en ${d.texto}, ${d.comuna}.`} og="visitanos" schema>
+
+  <section class="seccion modo-papel intro" aria-labelledby="t-vis">
+    <MarcaAgua color="azul" />
+    <div class="wrap">
+      <EncabezadoSeccion kicker="Visítanos" titulo="Te esperamos" frase="aquí hay lugar para ti" nivel={1} tamano="t-h1" id="t-vis" />
+      <p class="lead rv" style="margin-top:var(--s-5)">Todo lo que necesitas saber para venir por primera vez: cuándo, dónde y qué va a pasar.</p>
+      <nav class="atajos rv" aria-label="En esta página">
+        <a class="btn btn-texto" href="#horarios">Horarios</a>
+        <a class="btn btn-texto" href="#como-llegar">Cómo llegar</a>
+        <a class="btn btn-texto" href="#primera-vez">Tu primera vez</a>
+        <a class="btn btn-texto" href="#preguntas">Preguntas</a>
+      </nav>
+    </div>
+  </section>
+
+  <section class="seccion modo-papel papel-2" id="horarios" aria-labelledby="t-hor">
+    <div class="wrap">
+      <EncabezadoSeccion numero="01" kicker="Horarios" titulo="Cuándo nos juntamos" frase="tres momentos a la semana" id="t-hor" />
+      <div class="horarios" style="margin-top:var(--s-7)">
+        {iglesia.reuniones.map((r) => <TarjetaHorario reunion={r} calendario descripcion />)}
+      </div>
+      <p class="texto-2 rv" style="margin-top:var(--s-5);max-width:var(--ancho-txt)">El culto del domingo dura {iglesia.duracion_culto.toLowerCase()}. «Agregar a mi calendario» descarga un recordatorio semanal para tu celular, con la hora de Chile.</p>
+    </div>
+  </section>
+
+  <section class="seccion modo-noche" id="como-llegar" aria-labelledby="t-llegar">
+    <MarcaAgua />
+    <Marco />
+    <div class="wrap grilla llegar">
+      <div class="llegar-txt">
+        <p class="kicker rv">02 · Cómo llegar</p>
+        <h2 class="display t-h2 rv" id="t-llegar" style="--rv-i:1;margin-top:var(--s-4)">{d.texto}</h2>
+        <p class="acento frase rv" style="--rv-i:2;margin-top:var(--s-2)">{d.comuna}</p>
+        <dl class="indicaciones">
+          <div class="rv"><dt class="micro">En micro</dt><dd>{llegar.micro}</dd></div>
+          <div class="rv"><dt class="micro">En auto</dt><dd>{llegar.auto}</dd></div>
+          {estacionamiento && <div class="rv"><dt class="micro">Estacionamiento</dt><dd>{estacionamiento}</dd></div>}
+          <div class="rv"><dt class="micro">Si te pierdes</dt><dd>{llegar.referencia}</dd></div>
+        </dl>
+      </div>
+      <div class="llegar-mapa">
+        <Mapa />
+        <div class="qr-mapa rv">
+          <img src={ruta('/qr/qr-mapa.png')} alt="Código QR que abre la ubicación del templo en el mapa" width="112" height="112" loading="lazy" />
+          <p><b>¿Estás en el computador?</b> Escanea con tu celular y lleva el mapa contigo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion modo-papel" id="primera-vez" aria-labelledby="t-pv">
+    <div class="wrap grilla">
+      <div class="pv-cab">
+        <EncabezadoSeccion numero="03" kicker="Tu primera vez" titulo="Qué va a pasar" frase="sin sorpresas" id="t-pv" />
+        <p class="cuerpo rv" style="margin-top:var(--s-5)">Así es un domingo a las {iglesia.reuniones.find((r) => r.principal)?.hora}. No tienes que saber nada antes ni hacer nada que no quieras.</p>
+      </div>
+      <ol class="pasos pv-lista" role="list">
+        {iglesia.primera_vez.map((p, i) => (
+          <li class="paso rv">
+            <span class="num" aria-hidden="true">{i + 1}</span>
+            <div><h3 class="display t-h3">{p.t}</h3><p>{p.x}</p></div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="seccion modo-papel papel-2" id="preguntas" aria-labelledby="t-faq">
+    <div class="wrap">
+      <EncabezadoSeccion numero="04" kicker="Preguntas" titulo="Lo que muchos preguntan" id="t-faq" />
+      <div class="preguntas rv" style="margin-top:var(--s-7)">
+        {preguntas.map((p) => (
+          <details><summary>{p.q}</summary><p>{p.a}</p></details>
+        ))}
+        <details>
+          <summary>¿Cómo puedo pedir oración?</summary>
+          <p>Puedes pedirla al final del culto, o dejarla en nuestra <a class="enlace" href={ruta('/contacto#oracion')}>página de contacto</a>. También puedes escribirnos por <a class="enlace" href={instagram.mensaje_url} target="_blank" rel="noopener">Instagram</a>.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion modo-noche cierre" aria-labelledby="t-cierre">
+    <Rayos />
+    <MarcaAgua />
+    <Marco />
+    <div class="wrap encabezado centro">
+      <h2 class="display t-h1 rv" id="t-cierre">¿Te animas <span class="contorno">este domingo?</span></h2>
+      <p class="acento frase rv" style="--rv-i:1">te guardamos un lugar</p>
+      <div class="botones rv" style="--rv-i:2;justify-content:center;margin-top:var(--s-6)">
+        <a class="btn btn-primario" href="#como-llegar"><Icono nombre="pin" />Cómo llegar</a>
+        <a class="btn btn-secundario" href={ruta('/contacto')}>Escríbenos</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .intro { padding-top: calc(var(--seccion-y) + 4rem); min-height: 60vh; display: grid; align-items: end; }
+  .atajos { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-6); margin-top: var(--s-6); }
+  .llegar { row-gap: var(--s-8); align-items: start; }
+  .llegar h2 { overflow-wrap: anywhere; }
+  .indicaciones { display: grid; gap: var(--s-5); margin-top: var(--s-7); }
+  .indicaciones dt { color: var(--tn-celeste); }
+  .indicaciones dd { color: var(--tn-niebla); margin-top: var(--s-1); max-width: 34rem; }
+  .qr-mapa { display: none; }
+  @media (min-width: 1024px) {
+    .llegar-txt { grid-column: 1 / span 5; }
+    .llegar-mapa { grid-column: 6 / span 7; }
+    .qr-mapa { display: flex; gap: var(--s-5); align-items: center; margin-top: var(--s-5); color: var(--tn-niebla); font-size: var(--t-sm); }
+    .qr-mapa img { background: var(--tn-blanco); padding: var(--s-2); border-radius: var(--r-md); image-rendering: pixelated; }
+    .qr-mapa b { color: var(--tn-blanco); display: block; }
+  }
+  .pv-lista { margin-top: var(--s-4); }
+  @media (min-width: 1024px) {
+    .pv-cab { grid-column: 1 / span 4; position: sticky; top: 7rem; align-self: start; }
+    .pv-lista { grid-column: 6 / span 7; margin-top: 0; }
+    .pv-lista :global(.paso) { grid-template-columns: 7rem 1fr; }
+    .pv-lista::before { left: 8.5rem; }
+  }
+  .cierre { padding-block: calc(var(--seccion-y) * 1.2); }
+</style>

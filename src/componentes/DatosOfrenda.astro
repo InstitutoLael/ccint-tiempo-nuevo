@@ -1,0 +1,28 @@
+---
+import { iglesia } from '../lib/datos';
+import Icono from './Icono.astro';
+const o = iglesia.ofrendas;
+const filas = [
+  ['Banco', o.banco], ['Tipo', o.tipo_cuenta], ['Nombre', o.nombre], ['RUT', o.rut], ['N° de cuenta', o.numero_cuenta], ['Correo', o.correo],
+];
+const todo = filas.map(([k, v]) => `${k}: ${v}`).join('\n');
+---
+<div class="datos-ofrenda">
+  <div class="datos rv">
+    <dl>
+      {filas.map(([k, v]) => (
+        <div class="dato">
+          <dt>{k}</dt>
+          <dd>
+            <span class="valor">{v.includes('@') ? <>{v.split('@')[0]}<wbr />@{v.split('@')[1]}</> : v}</span>
+            <button class="copiar" type="button" data-copiar={v} data-etiqueta={k}>Copiar<span class="sr-only"> {k}</span></button>
+          </dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+  <div class="botones" style="margin-top:var(--s-5)">
+    <button class="btn btn-primario copiar-todo" type="button" data-copiar={todo} data-etiqueta="Todos los datos" data-aviso="Todos los datos copiados"><Icono nombre="copiar" /><span data-texto>Copiar todos los datos</span></button>
+  </div>
+  <p class="sr-only" aria-live="polite" data-aviso-copia></p>
+</div>

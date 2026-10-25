@@ -1,0 +1,145 @@
+/* =====================================================================
+   CCINT TIEMPO NUEVO · Tokens de identidad visual (v1 · oct 2026)
+   Fuente única de verdad. Todo color, tipo, espacio, sombra y
+   movimiento del sitio sale de aquí. No inventar valores nuevos.
+   ===================================================================== */
+
+/* ---------- Fuentes (auto-alojadas, licencia OFL; ver /assets/fuentes) ---------- */
+@font-face { font-family: "Anton"; src: url("../assets/fuentes/anton-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("../assets/fuentes/montserrat-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("../assets/fuentes/montserrat-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("../assets/fuentes/montserrat-latin-500-italic.woff2") format("woff2"); font-weight: 500; font-style: italic; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("../assets/fuentes/montserrat-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("../assets/fuentes/montserrat-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("../assets/fuentes/montserrat-latin-800-normal.woff2") format("woff2"); font-weight: 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Playfair Display"; src: url("../assets/fuentes/playfair-display-latin-500-italic.woff2") format("woff2"); font-weight: 500; font-style: italic; font-display: swap; }
+@font-face { font-family: "Playfair Display"; src: url("../assets/fuentes/playfair-display-latin-600-italic.woff2") format("woff2"); font-weight: 600; font-style: italic; font-display: swap; }
+
+:root {
+  /* ---------- COLOR · paleta base ---------- */
+  /* Noches (modo "Transmisión") */
+  --tn-noche:      #06112A;  /* fondo más profundo */
+  --tn-abismo:     #0C1D42;  /* fondo de sección oscura */
+  --tn-marino-2:   #16316A;  /* superficie elevada oscura */
+  --tn-marino:     #1E3F82;  /* superficie de acento oscura */
+  --tn-logo:       #233C6C;  /* azul exacto del logo */
+  /* Azules de acción */
+  --tn-azul:       #1A6FB0;  /* azul de los videos de la iglesia; botones */
+  --tn-azul-tinta: #165E9C;  /* azul para TEXTO pequeño sobre papel (AA) */
+  --tn-azul-hover: #14548A;
+  --tn-acento:     #2D86E0;  /* SOLO decoración / textos grandes */
+  --tn-celeste:    #9CCBFF;  /* kickers y detalles sobre oscuro */
+  /* Papeles (modo "Papel") */
+  --tn-papel:      #ECE8DF;  /* fondo crema de los videos de la iglesia */
+  --tn-papel-2:    #F6F3EC;  /* papel más claro, tarjetas sobre papel */
+  --tn-blanco:     #FFFFFF;
+  /* Tintas y neutros */
+  --tn-tinta:      #1C2233;  /* texto principal sobre papel */
+  --tn-gris:       #5B6478;  /* texto secundario sobre papel (AA) */
+  --tn-niebla:     #CFD9EE;  /* texto secundario sobre oscuro */
+  --tn-hueso:      #E9E2D2;  /* texto script/itálico sobre oscuro */
+  --tn-linea-p:    rgba(28, 34, 51, .14);   /* bordes sobre papel */
+  --tn-linea-o:    rgba(255, 255, 255, .16);/* bordes sobre oscuro */
+  /* Estado */
+  --tn-vivo:       #E0353F;  /* ÚNICO rojo de UI: punto "EN VIVO" */
+  --tn-exito:      #1F8A5B;
+  /* Rojo del logo: NUNCA como color de interfaz (evita look "18 de septiembre") */
+  --tn-rojo-logo:  #9C2229;
+
+  /* ---------- COLOR · roles (usar ESTOS en componentes) ---------- */
+  --bg:            var(--tn-papel);
+  --bg-elevado:    var(--tn-papel-2);
+  --texto:         var(--tn-tinta);
+  --texto-2:       var(--tn-gris);
+  --enlace:        var(--tn-azul-tinta);
+  --borde:         var(--tn-linea-p);
+  --accion:        var(--tn-azul);
+  --accion-hover:  var(--tn-azul-hover);
+  --accion-texto:  var(--tn-blanco);
+  --kicker:        var(--tn-azul-tinta);
+  --foco:          var(--tn-acento);
+
+  /* ---------- TIPOGRAFÍA ---------- */
+  --f-display: "Anton", "Impact", "Arial Narrow Bold", sans-serif;          /* titulares, siempre MAYÚSCULAS */
+  --f-texto:   "Montserrat", "Segoe UI", system-ui, sans-serif;              /* todo lo demás */
+  --f-acento:  "Playfair Display", Georgia, "Times New Roman", serif;        /* frases cortas en itálica */
+
+  /* Escala fluida (360px → 1440px) */
+  --t-hero:   clamp(4rem, 2.2rem + 8vw, 11.5rem);   /* 64 → 184 px · Anton */
+  --t-h1:     clamp(3rem, 1.9rem + 4.9vw, 7rem);    /* 48 → 112 px · Anton */
+  --t-h2:     clamp(2.25rem, 1.6rem + 2.9vw, 4.5rem);/* 36 → 72 px · Anton */
+  --t-h3:     clamp(1.5rem, 1.2rem + 1.3vw, 2.25rem);/* 24 → 36 px · Anton */
+  --t-acento: clamp(1.75rem, 1.3rem + 2vw, 3.5rem); /* 28 → 56 px · Playfair itálica */
+  --t-lead:   clamp(1.125rem, 1.05rem + .35vw, 1.375rem); /* 18 → 22 px */
+  --t-base:   1.0625rem;  /* 17 px cuerpo */
+  --t-sm:     .9375rem;   /* 15 px */
+  --t-kicker: .8125rem;   /* 13 px · 800 · tracking 0.32em · MAYÚSCULAS */
+  --t-micro:  .6875rem;   /* 11 px · etiquetas */
+
+  --lh-display: .92;
+  --lh-titulo:  1.05;
+  --lh-texto:   1.65;
+  --tr-display: .02em;
+  --tr-kicker:  .32em;
+  --tr-boton:   .14em;
+
+  /* ---------- ESPACIO (base 4 px) ---------- */
+  --s-1: .25rem;  --s-2: .5rem;  --s-3: .75rem; --s-4: 1rem;   --s-5: 1.5rem;
+  --s-6: 2rem;    --s-7: 3rem;   --s-8: 4rem;   --s-9: 6rem;   --s-10: 8rem;
+  --seccion-y: clamp(4.5rem, 3rem + 6vw, 9rem);   /* aire vertical entre secciones */
+  --gutter:    clamp(1.25rem, .8rem + 2vw, 3rem); /* margen lateral */
+  --ancho:     76rem;   /* 1216 px contenedor */
+  --ancho-txt: 40rem;   /* 640 px máximo para párrafos */
+
+  /* ---------- FORMA ---------- */
+  --r-xs: 4px;  --r-sm: 6px;  --r-md: 12px;  --r-lg: 18px;  --r-xl: 28px;  --r-pill: 999px;
+
+  /* ---------- SOMBRAS ---------- */
+  --sh-papel:   0 1px 0 rgba(255,255,255,.7) inset, 0 18px 40px -18px rgba(28,34,51,.28);
+  --sh-tarjeta: 0 20px 50px -20px rgba(6,17,42,.45);
+  --sh-vidrio:  0 18px 50px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.18);
+  --sh-texto:   0 18px 60px rgba(0,0,0,.40);
+
+  /* ---------- SUPERFICIES ESPECIALES ---------- */
+  --vidrio:      linear-gradient(180deg, rgba(30,52,98,.94) 0%, rgba(14,28,58,.94) 100%);
+  --vidrio-suave:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+  --cielo-noche: radial-gradient(1400px 900px at 50% 40%, #2a5aa6 0%, #143066 42%, #06112A 100%);
+  --boton-azul:  linear-gradient(160deg, var(--tn-acento), #1559A8);
+  --linea-firma: linear-gradient(90deg, var(--tn-acento), var(--tn-celeste));
+  /* Textura de papel (ruido SVG). Aplicar como background-image sobre --tn-papel */
+  --grano-papel: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35 0 0 0 0 .32 0 0 0 0 .28 0 0 0 .22 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  --grano-noche: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/></svg>");
+
+  /* ---------- MOVIMIENTO ---------- */
+  --e-salida:  cubic-bezier(.2, .8, .2, 1);    /* curva firma: entra rápido, frena suave */
+  --e-rebote:  cubic-bezier(.2, .9, .3, 1.2);  /* letras del titular */
+  --e-cortina: cubic-bezier(.7, 0, .2, 1);     /* barridos tipo TV */
+  --d-rapido: 180ms;  --d-base: 320ms;  --d-lento: 700ms;  --d-escena: 1000ms;
+  --escalon:  70ms;   /* retraso entre letras/elementos en cascada */
+}
+
+/* Modo oscuro de SECCIÓN (no del sistema): aplicar class="modo-noche" a una <section> */
+.modo-noche {
+  --bg:           var(--tn-abismo);
+  --bg-elevado:   var(--tn-marino-2);
+  --texto:        var(--tn-blanco);
+  --texto-2:      var(--tn-niebla);
+  --enlace:       var(--tn-celeste);
+  --borde:        var(--tn-linea-o);
+  --accion:       var(--tn-azul);
+  --accion-hover: var(--tn-acento);
+  --kicker:       var(--tn-celeste);
+  --foco:         var(--tn-celeste);
+  background: var(--cielo-noche);
+  color: var(--texto);
+}
+
+.modo-papel {
+  background-color: var(--tn-papel);
+  background-image: var(--grano-papel);
+  color: var(--tn-tinta);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --d-rapido: 0ms; --d-base: 0ms; --d-lento: 0ms; --d-escena: 0ms; --escalon: 0ms; }
+}

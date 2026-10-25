@@ -1,0 +1,21 @@
+---
+// Mapa propio dibujado con datos de OpenStreetMap (sin terceros al cargar).
+// Google Maps se incrusta solo si la persona pulsa «Cargar mapa interactivo» (privacidad y rendimiento).
+import svg from '../assets/mapa/templo.svg?raw';
+import { iglesia, mapaUrl, mapaEmbed, wazeUrl } from '../lib/datos';
+import Icono from './Icono.astro';
+---
+<div class="mapa rv" data-mapa={mapaEmbed}>
+  <div class="lienzo" data-mapa-lienzo>
+    <Fragment set:html={svg} />
+    <span class="vivo etiqueta-av" data-estado="proximo" style="color:var(--tn-blanco)">Av. {iglesia.nombre.comuna}</span>
+  </div>
+  <div class="barra">
+    <div class="botones">
+      <a class="btn btn-primario" href={mapaUrl} target="_blank" rel="noopener"><Icono nombre="pin" />Abrir en Google Maps</a>
+      <a class="btn btn-secundario" href={wazeUrl} target="_blank" rel="noopener">Waze</a>
+    </div>
+    <button class="btn btn-texto cargar" type="button" data-mapa-cargar style="color:var(--tn-celeste)">Cargar mapa interactivo</button>
+    <p class="atrib">Mapa: datos © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">colaboradores de OpenStreetMap</a></p>
+  </div>
+</div>

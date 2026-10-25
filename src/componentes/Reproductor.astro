@@ -1,0 +1,18 @@
+---
+// Fachada del vivo: muestra una portada con foto real y recién al hacer clic inserta el reproductor de YouTube.
+import { iglesia } from '../lib/datos';
+import Foto from './Foto.astro';
+import Placa from './Placa.astro';
+import Icono from './Icono.astro';
+interface Props { titulo?: string }
+const { titulo = 'Ver la transmisión' } = Astro.props;
+const id = iglesia.transmision.youtube_canal_id;
+const src = `https://www.youtube-nocookie.com/embed/live_stream?channel=${id}&autoplay=1`;
+---
+<div class="reproductor rv" data-reproductor={src}>
+  <button class="portada" type="button" aria-label={`${titulo}: cargar el reproductor de YouTube`}>
+    <Foto archivo="escenario.jpg" alt="" duotono sizes="(min-width: 1024px) 60vw, 100vw" />
+    <span class="play" aria-hidden="true"><Icono nombre="play" /></span>
+    <Placa nombre={titulo} titulo={`${iglesia.nombre.marca} · Domingos 10:30 hrs`} animar={false} />
+  </button>
+</div>

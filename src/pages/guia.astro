@@ -1,0 +1,64 @@
+---
+// DECISIÓN: el brief pide /_guia, pero Astro no publica páginas que empiezan con «_».
+// Queda en /guia, con noindex y bloqueada en robots.txt.
+import Base from '../layouts/Base.astro';
+import EncabezadoSeccion from '../componentes/EncabezadoSeccion.astro';
+import TarjetaHorario from '../componentes/TarjetaHorario.astro';
+import PildoraVivo from '../componentes/PildoraVivo.astro';
+import Placa from '../componentes/Placa.astro';
+import DatosOfrenda from '../componentes/DatosOfrenda.astro';
+import Cita from '../componentes/Cita.astro';
+import Mapa from '../componentes/Mapa.astro';
+import Reproductor from '../componentes/Reproductor.astro';
+import Foto from '../componentes/Foto.astro';
+import Firma from '../componentes/Firma.astro';
+import MarcaAgua from '../componentes/MarcaAgua.astro';
+import Marco from '../componentes/Marco.astro';
+import Icono from '../componentes/Icono.astro';
+import { iglesia } from '../lib/datos';
+---
+<Base titulo="Guía de componentes" descripcion="Guía interna de componentes del sitio." noindex>
+  <section class="seccion modo-papel" style="padding-top:calc(var(--seccion-y) + 4rem)">
+    <div class="wrap">
+      <EncabezadoSeccion kicker="Guía interna" titulo="Piezas del sitio" frase="modo papel" nivel={1} tamano="t-h1" />
+      <h2 class="display t-h3 g">Firma</h2>
+      <div class="fila"><Firma color="color" enlace={false} /></div>
+      <h2 class="display t-h3 g">Botones y estado</h2>
+      <div class="botones">
+        <a class="btn btn-primario" href="#"><Icono nombre="pin" />Cómo llegar</a>
+        <a class="btn btn-secundario" href="#">Ver horarios</a>
+        <a class="btn btn-texto" href="#">Conoce nuestra historia</a>
+        <span class="vivo" data-estado="en-vivo"><i></i>En vivo</span>
+        <PildoraVivo />
+      </div>
+      <h2 class="display t-h3 g">Horarios</h2>
+      <div class="horarios">{iglesia.reuniones.map((r) => <TarjetaHorario reunion={r} calendario />)}</div>
+      <h2 class="display t-h3 g">Datos copiables</h2>
+      <div style="max-width:44rem"><DatosOfrenda /></div>
+      <h2 class="display t-h3 g">Cita</h2>
+      <Cita texto={iglesia.ofrendas.versiculo.texto} cita={iglesia.ofrendas.versiculo.cita} />
+      <h2 class="display t-h3 g">Foto pendiente</h2>
+      <div style="max-width:20rem"><Foto archivo={null} alt="Foto pendiente" pendiente="muro de bienvenida «Aquí hay lugar para ti», de noche" style="aspect-ratio:4/5;border-radius:var(--r-lg)" /></div>
+    </div>
+  </section>
+  <section class="seccion modo-noche">
+    <MarcaAgua />
+    <Marco />
+    <div class="wrap">
+      <EncabezadoSeccion kicker="Modo noche" titulo="Lenguaje de transmisión" frase="bienvenidos a nuestra transmisión" />
+      <div class="horarios" style="margin-top:var(--s-6)">{iglesia.reuniones.map((r) => <TarjetaHorario reunion={r} />)}</div>
+      <div class="fila"><Placa nombre="Pr. David Núñez A." titulo="La naturaleza de la iglesia" /></div>
+      <div class="fila"><Placa nombre="Próxima reunión" chica><span>Domingo 10:30 hrs</span></Placa></div>
+      <div class="fila g2"><Reproductor /><Mapa /></div>
+      <p class="display t-h1" style="margin-top:var(--s-8)">Gracias <span class="contorno">por venir</span></p>
+      <p class="display t-h3" style="margin-top:var(--s-5)">Prueba de tildes: MINISTRACIÓN · ORACIÓN · ÁÉÍÓÚ Ñ</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .g { color: var(--tn-logo); margin: var(--s-8) 0 var(--s-4); }
+  .fila { margin-top: var(--s-6); }
+  .g2 { display: grid; gap: var(--s-6); }
+  @media (min-width: 1024px) { .g2 { grid-template-columns: 1fr 1fr; align-items: start; } }
+</style>

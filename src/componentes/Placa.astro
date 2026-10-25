@@ -1,0 +1,10 @@
+---
+// Placa tipo «lower third» de la transmisión (referencias/01).
+import { ruta } from '../lib/datos';
+interface Props { nombre: string; titulo?: string; chica?: boolean; class?: string; animar?: boolean }
+const { nombre, titulo, chica = false, class: clase = '', animar = true } = Astro.props;
+---
+<div class:list={['placa', clase, { chica, barrido: animar }]}>
+  <div class="chip"><img src={ruta('/logo/isotipo-blanco.svg')} alt="" width="58" height="58" /></div>
+  <div class="txt vidrio brillo"><b>{nombre}</b>{titulo && <span>{titulo}</span>}<slot /></div>
+</div>

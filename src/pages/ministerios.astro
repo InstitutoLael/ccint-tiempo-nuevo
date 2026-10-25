@@ -1,0 +1,67 @@
+---
+import Base from '../layouts/Base.astro';
+import EncabezadoSeccion from '../componentes/EncabezadoSeccion.astro';
+import MarcaAgua from '../componentes/MarcaAgua.astro';
+import Marco from '../componentes/Marco.astro';
+import { iglesia, ruta, valor, instagram, facebook } from '../lib/datos';
+---
+<Base titulo="Ministerios" descripcion={`Ministerios de ${iglesia.nombre.marca} en ${iglesia.nombre.comuna}: Escuela Bíblica, preadolescentes, adolescentes, jóvenes, mujeres, varones, matrimonios, danza y servidores.`}>
+
+  <section class="seccion modo-papel intro" aria-labelledby="t-min">
+    <MarcaAgua color="azul" />
+    <div class="wrap">
+      <EncabezadoSeccion kicker="Ministerios" titulo="Un lugar para cada etapa" frase="nadie camina solo" nivel={1} tamano="t-h1" id="t-min" />
+      <p class="lead rv" style="margin-top:var(--s-5)">Desde los más chicos hasta los matrimonios, hay un grupo donde puedes crecer y servir.</p>
+    </div>
+  </section>
+
+  <section class="seccion modo-papel papel-2" aria-label="Lista de ministerios">
+    <div class="wrap">
+      <ol class="lista" role="list">
+        {iglesia.ministerios.map((m, i) => {
+          const cuando = valor(m.cuando);
+          return (
+            <li class="rv">
+              <span class="n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <h2 class="display">{m.nombre}</h2>
+              <div class="det">
+                <p class="para">{m.para}</p>
+                <p>{m.texto}</p>
+                {cuando && <p class="cuando micro">{cuando}</p>}
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+  </section>
+
+  <section class="seccion modo-noche" aria-labelledby="t-servir">
+    <MarcaAgua />
+    <Marco />
+    <div class="wrap encabezado centro">
+      <h2 class="display t-h2 rv" id="t-servir">¿Quieres sumarte?</h2>
+      <p class="acento frase rv" style="--rv-i:1">somos uno, somos familia</p>
+      <p class="lead rv" style="--rv-i:2;margin-inline:auto;text-align:center">Acércate después del culto o escríbenos y te contamos cuándo se junta cada grupo.</p>
+      <div class="botones rv" style="--rv-i:3;justify-content:center;margin-top:var(--s-5)">
+        <a class="btn btn-primario" href={instagram.mensaje_url} target="_blank" rel="noopener">Escríbenos por Instagram</a>
+        <a class="btn btn-secundario" href={ruta('/contacto')}>Otras formas de contacto</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .intro { padding-top: calc(var(--seccion-y) + 4rem); min-height: 56vh; display: grid; align-items: end; }
+  .lista { border-top: 1px solid var(--tn-linea-p); }
+  .lista li { display: grid; grid-template-columns: 2.5rem 1fr; gap: var(--s-2) var(--s-4); padding-block: var(--s-6); border-bottom: 1px solid var(--tn-linea-p); }
+  .n { font-weight: 800; font-size: var(--t-kicker); letter-spacing: .2em; color: var(--tn-azul-tinta); padding-top: .6em; font-variant-numeric: tabular-nums; }
+  .lista h2 { font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem); line-height: 1.04; color: var(--tn-logo); }
+  .det { grid-column: 2; max-width: 34rem; display: grid; gap: var(--s-2); }
+  .para { font-weight: 700; color: var(--tn-azul-tinta); }
+  .cuando { color: var(--tn-gris); margin-top: var(--s-1); }
+  @media (min-width: 1024px) {
+    .lista li { grid-template-columns: 3rem 6fr 5fr; gap: var(--s-6); align-items: baseline; }
+    .det { grid-column: 3; }
+  }
+</style>

@@ -1,0 +1,21 @@
+---
+import type { Reunion } from '../lib/datos';
+import { ruta } from '../lib/datos';
+import Icono from './Icono.astro';
+interface Props { reunion: Reunion; calendario?: boolean; descripcion?: boolean }
+const { reunion: r, calendario = false, descripcion = false } = Astro.props;
+---
+<article class:list={['horario', 'rv', { principal: r.principal }]} data-reunion={r.id}>
+  <p class="etiqueta-proxima" data-proxima hidden>Próxima</p>
+  <h3 class="dia">{r.dia}</h3>
+  <p class="hora">{r.hora}<small>hrs</small></p>
+  <p class="nombre">{r.nombre}</p>
+  {descripcion && r.descripcion && <p class="desc">{r.descripcion}</p>}
+  {calendario && (
+    <div class="acciones">
+      <a class="enlace-cal" href={ruta(`/calendario/${r.id}.ics`)} download={`tiempo-nuevo-${r.dia.toLowerCase()}-${r.hora.replace(':', '')}.ics`}>
+        <Icono nombre="calendario" />Agregar a mi calendario<span class="sr-only">: {r.dia} {r.hora}, {r.nombre}</span>
+      </a>
+    </div>
+  )}
+</article>

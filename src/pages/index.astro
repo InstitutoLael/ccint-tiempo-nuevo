@@ -1,0 +1,210 @@
+---
+import Base from '../layouts/Base.astro';
+import EncabezadoSeccion from '../componentes/EncabezadoSeccion.astro';
+import TarjetaHorario from '../componentes/TarjetaHorario.astro';
+import PildoraVivo from '../componentes/PildoraVivo.astro';
+import Placa from '../componentes/Placa.astro';
+import Reproductor from '../componentes/Reproductor.astro';
+import Cita from '../componentes/Cita.astro';
+import Foto from '../componentes/Foto.astro';
+import MarcaAgua from '../componentes/MarcaAgua.astro';
+import Rayos from '../componentes/Rayos.astro';
+import Marco from '../componentes/Marco.astro';
+import Icono from '../componentes/Icono.astro';
+import { iglesia, ruta, principal, mapaUrl, facebook, youtube, valor } from '../lib/datos';
+
+const titular = 'Aquí hay lugar';
+let n = 0;
+const palabras = titular.toUpperCase().split(' ').map((p) => [...p].map((l) => ({ l, i: n++ })));
+const ministerios = iglesia.ministerios.slice(0, 5);
+---
+<Base descripcion={iglesia.seo.descripcion} og="inicio" sobreNoche schema>
+
+  <!-- S1 · Hero -->
+  <section class="hero modo-noche" aria-labelledby="titulo-hero">
+    <Foto archivo="escenario.jpg" alt="" class="hero-foto" duotono eager sizes="100vw" />
+    <div class="hero-cielo" aria-hidden="true"></div>
+    <Rayos />
+    <MarcaAgua />
+    <Marco />
+    <div class="wrap hero-in">
+      <div class="hero-txt">
+        <p class="kicker rv">CCINT · {iglesia.nombre.comuna}</p>
+        <h1 class="display t-hero hero-titulo" id="titulo-hero" aria-label={titular}>
+          {palabras.map((p) => (
+            <span class="letras" aria-hidden="true">{p.map(({ l, i }) => <span class="l" style={`--i:${i}`}>{l}</span>)}</span>
+          ))}
+        </h1>
+        <p class="acento frase hero-frase rv" style="--rv-i:3">para ti</p>
+        <p class="lead rv" style="--rv-i:4">
+          Somos una iglesia en {iglesia.nombre.comuna}. Te esperamos <span data-proxima-principal>este {principal.dia.toLowerCase()} a las {principal.hora}</span>, tal como estás.
+        </p>
+        <div class="botones rv" style="--rv-i:5">
+          <a class="btn btn-primario" href={ruta('/visitanos#como-llegar')}><Icono nombre="pin" />Cómo llegar</a>
+          <a class="btn btn-secundario" href={ruta('/en-vivo')} data-solo-proximo>Ver en vivo</a>
+          <a class="btn btn-primario" href={ruta('/en-vivo')} data-solo-vivo hidden><span class="vivo" data-estado="en-vivo"><i aria-hidden="true"></i>En vivo</span>Ver ahora</a>
+        </div>
+      </div>
+      <Placa class="hero-placa" nombre="Próxima reunión" chica>
+        <span data-proxima-texto>{principal.dia} {principal.hora} hrs</span>
+      </Placa>
+    </div>
+    <span class="hero-scroll" aria-hidden="true"></span>
+  </section>
+
+  <!-- S2 · Te esperamos -->
+  <section class="seccion modo-papel" aria-labelledby="t-reuniones">
+    <div class="wrap">
+      <EncabezadoSeccion numero="01" kicker="Te esperamos" titulo="Nuestras reuniones" frase="ven tal como estás" id="t-reuniones" />
+      <div class="horarios" style="margin-top:var(--s-7)">
+        {iglesia.reuniones.map((r) => <TarjetaHorario reunion={r} />)}
+      </div>
+      <div class="bajo-horarios">
+        <p class="direccion"><Icono nombre="pin" /><span>{iglesia.direccion.texto}, {iglesia.direccion.comuna}. <a class="enlace" href={mapaUrl} target="_blank" rel="noopener">Abrir en el mapa →</a></span></p>
+        <a class="btn btn-texto" href={ruta('/visitanos#primera-vez')}>¿Primera vez? Te contamos qué esperar</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- S3 · Quiénes somos -->
+  <section class="seccion modo-papel papel-2 somos" aria-labelledby="t-somos">
+    <div class="somos-grid">
+      <Foto archivo="pastor-predicando.jpg" alt={`El pastor David Núñez A. predicando en el templo de ${iglesia.nombre.corto}`} class="somos-foto calida" sizes="(min-width: 1024px) 55vw, 100vw" posicion="50% 25%" />
+      <div class="somos-txt">
+        <EncabezadoSeccion numero="02" kicker="Somos familia" titulo="Somos uno. Somos familia." frase="somos iglesia" id="t-somos" />
+        <p class="cuerpo rv" style="margin-top:var(--s-5)">
+          {iglesia.nombre.corto} es una comunidad cristiana en {iglesia.nombre.comuna}, guiada por los {iglesia.pastores.presentacion.replace('Pastores', 'pastores')}. Creemos que Dios hace nuevas todas las cosas, y que en su casa siempre hay un lugar para ti.
+        </p>
+        <p style="margin-top:var(--s-5)" class="rv"><a class="btn btn-texto" href={ruta('/nosotros')}>Conoce nuestra historia</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- S4 · En vivo -->
+  <section class="seccion modo-noche" aria-labelledby="t-vivo">
+    <MarcaAgua />
+    <Marco />
+    <div class="wrap grilla vivo-grid">
+      <div class="vivo-txt">
+        <EncabezadoSeccion numero="03" kicker="Transmisión" frase="te acompañamos desde donde estés" id="t-vivo">
+          <Fragment slot="titulo">Si no puedes venir,<br /><span class="contorno">conéctate</span></Fragment>
+        </EncabezadoSeccion>
+        <p class="lead rv" style="margin-top:var(--s-5)">Transmitimos en vivo los domingos a las {principal.hora} por Facebook y YouTube.</p>
+        <div class="rv" style="margin-top:var(--s-5)"><PildoraVivo grande /></div>
+        <div class="botones rv" style="margin-top:var(--s-6)">
+          <a class="btn btn-primario" href={facebook.url} target="_blank" rel="noopener"><Icono nombre="facebook" />Facebook</a>
+          <a class="btn btn-secundario" href={youtube.url} target="_blank" rel="noopener"><Icono nombre="youtube" />YouTube</a>
+        </div>
+      </div>
+      <div class="vivo-video"><Reproductor /></div>
+    </div>
+  </section>
+
+  <!-- S5 · Ministerios (lista editorial) -->
+  <section class="seccion modo-papel" aria-labelledby="t-min">
+    <div class="wrap">
+      <EncabezadoSeccion numero="04" kicker="Ministerios" titulo="Un lugar para cada etapa" frase="también para los más chicos" id="t-min" />
+      <ul class="lista-min" role="list">
+        {ministerios.map((m, i) => (
+          <li class="rv" style={`--rv-i:${i % 3}`}>
+            <h3 class="display t-h3">{m.nombre}</h3>
+            <p><b>{m.para}.</b> {m.texto}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="rv" style="margin-top:var(--s-6)"><a class="btn btn-texto" href={ruta('/ministerios')}>Ver todos los ministerios</a></p>
+    </div>
+  </section>
+
+  <!-- S6 · Cita -->
+  <section class="seccion modo-noche cita-sec" aria-label="Versículo">
+    <Rayos />
+    <MarcaAgua />
+    <div class="wrap">
+      <Cita texto={iglesia.versiculos.lema.texto} cita={iglesia.versiculos.lema.cita} grande centro />
+    </div>
+  </section>
+
+  <!-- S7 · Ofrendas -->
+  <section class="seccion modo-papel papel-2" aria-labelledby="t-ofrendas">
+    <div class="wrap ofr-grid">
+      <div>
+        <EncabezadoSeccion numero="05" kicker="Ofrendas" titulo="Dar es adorar" frase="gracias por sembrar en esta casa" id="t-ofrendas" />
+        <p class="cuerpo rv" style="margin-top:var(--s-5)">Si quieres apoyar la obra de Dios en {iglesia.nombre.comuna}, puedes hacerlo por transferencia. Los datos están listos para copiar y pegar en la app de tu banco.</p>
+        <p class="botones rv" style="margin-top:var(--s-6)"><a class="btn btn-primario" href={ruta('/ofrendas')}>Ver datos de transferencia</a></p>
+      </div>
+      <div class="qr rv">
+        <div class="marco-qr"><img src={ruta('/qr/qr-ofrendas.png')} alt="Código QR con los datos de transferencia para ofrendas" width="176" height="176" loading="lazy" /></div>
+        <p>Escanea y copia los datos</p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* Hero */
+  .hero { position: relative; min-height: max(100svh, 40rem); display: grid; align-items: end; overflow: hidden; isolation: isolate; padding-block: 7rem 4.5rem; }
+  .hero :global(.hero-foto) { position: absolute; inset: 0; z-index: 0; }
+  .hero-cielo { position: absolute; inset: 0; z-index: 0; background: var(--cielo-noche); opacity: .7; }
+  .hero-in { position: relative; z-index: 2; display: grid; gap: var(--s-7); align-items: end; text-align: center; justify-items: center; }
+  .hero-txt { display: grid; justify-items: center; gap: var(--s-4); max-width: 60rem; }
+  .hero-titulo { text-shadow: var(--sh-texto); display: flex; flex-wrap: wrap; justify-content: center; column-gap: .25em; margin-top: var(--s-3); }
+  .hero-frase { margin-top: calc(-1 * var(--s-2)); font-size: clamp(2.25rem, 1.6rem + 3vw, 4.5rem); }
+  .hero .lead { color: var(--tn-niebla); }
+  .hero .botones { justify-content: center; margin-top: var(--s-3); }
+  .hero .btn-secundario { color: var(--tn-blanco); }
+  .hero .btn .vivo { padding: .2rem .5rem; box-shadow: none; background: rgba(6,17,42,.4); font-size: .6875rem; }
+  .hero :global(.hero-placa) { display: none; }
+  .hero :global(.marco-tx) { top: calc(4rem + var(--s-3)); }
+  .hero-scroll { position: absolute; z-index: 2; left: 50%; bottom: 1.25rem; width: 2px; height: 2.5rem; background: linear-gradient(var(--tn-celeste), transparent); transform-origin: top; }
+  @media (prefers-reduced-motion: no-preference) { .hero-scroll { animation: bajar 2.4s var(--e-salida) infinite; } }
+  @keyframes bajar { 0% { transform: scaleY(0); opacity: 1; } 70% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
+  @media (min-width: 1024px) {
+    .hero { padding-block: 9rem 6rem; }
+    .hero-in { grid-template-columns: 1fr auto; text-align: left; justify-items: start; }
+    .hero-txt { justify-items: start; }
+    .hero-titulo { justify-content: flex-start; }
+    .hero .botones { justify-content: flex-start; }
+    .hero :global(.hero-placa) { display: flex; min-width: 19rem; }
+    .hero :global(.marco-tx) { top: calc(4.75rem + var(--s-4)); }
+    .hero-scroll { left: auto; right: 50%; }
+  }
+
+  /* Reuniones */
+  .bajo-horarios { display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-7); justify-content: space-between; align-items: center; margin-top: var(--s-6); }
+  .direccion { display: flex; gap: var(--s-3); align-items: flex-start; max-width: 34rem; font-weight: 500; }
+  .direccion :global(svg) { color: var(--tn-azul-tinta); margin-top: .1rem; }
+
+  /* Somos: foto que sangra a la izquierda */
+  .somos { padding-block: var(--seccion-y); }
+  .somos-grid { display: grid; gap: var(--s-7); position: relative; z-index: 2; }
+  .somos :global(.somos-foto) { aspect-ratio: 4 / 5; max-height: 34rem; border-radius: 0 var(--r-xl) var(--r-xl) 0; margin-right: var(--gutter); box-shadow: var(--sh-papel); }
+  .somos-txt { padding-inline: var(--gutter); }
+  @media (min-width: 1024px) {
+    .somos-grid { grid-template-columns: 7fr 5fr; align-items: center; gap: var(--s-9); padding-right: max(var(--gutter), (100vw - var(--ancho)) / 2); }
+    .somos :global(.somos-foto) { aspect-ratio: 5 / 4; max-height: none; margin-right: 0; }
+    .somos-txt { padding-inline: 0; }
+  }
+
+  /* En vivo */
+  .vivo-grid { align-items: center; row-gap: var(--s-7); }
+  @media (min-width: 1024px) {
+    .vivo-txt { grid-column: 1 / span 5; }
+    .vivo-video { grid-column: 6 / span 7; }
+  }
+
+  /* Ministerios: lista editorial, no grilla de tarjetas */
+  .lista-min { margin-top: var(--s-7); border-top: 1px solid var(--tn-linea-p); }
+  .lista-min li { display: grid; gap: var(--s-2); padding-block: var(--s-5); border-bottom: 1px solid var(--tn-linea-p); }
+  .lista-min h3 { color: var(--tn-logo); }
+  .lista-min p { max-width: 36rem; }
+  .lista-min b { color: var(--tn-azul-tinta); font-weight: 700; }
+  @media (min-width: 768px) { .lista-min li { grid-template-columns: 5fr 7fr; align-items: baseline; gap: var(--s-6); } }
+
+  /* Cita */
+  .cita-sec { min-height: 60vh; display: grid; align-items: center; }
+
+  /* Ofrendas */
+  .ofr-grid { display: grid; gap: var(--s-8); align-items: center; }
+  @media (min-width: 768px) { .ofr-grid { grid-template-columns: 7fr 5fr; } .ofr-grid .qr { justify-self: center; } }
+</style>

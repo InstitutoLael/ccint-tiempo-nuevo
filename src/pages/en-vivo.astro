@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import EncabezadoSeccion from '../componentes/EncabezadoSeccion.astro';
+import TarjetaHorario from '../componentes/TarjetaHorario.astro';
+import PildoraVivo from '../componentes/PildoraVivo.astro';
+import Reproductor from '../componentes/Reproductor.astro';
+import MarcaAgua from '../componentes/MarcaAgua.astro';
+import Marco from '../componentes/Marco.astro';
+import Rayos from '../componentes/Rayos.astro';
+import Icono from '../componentes/Icono.astro';
+import { iglesia, transmitidas, facebook, youtube, datosHorario } from '../lib/datos';
+import { enVivo } from '../lib/horario';
+const vivo = !!enVivo(datosHorario);
+---
+<Base titulo="En vivo" descripcion={`Mira en vivo el culto de ${iglesia.nombre.marca}, los domingos a las 10:30, por Facebook y YouTube. Si no puedes venir, conéctate.`} og="en-vivo" sobreNoche>
+
+  <section class="modo-noche cabecera" aria-label="Estado de la transmisión">
+    <Rayos />
+    <MarcaAgua />
+    <Marco />
+    <div class="wrap centro">
+      <div class="rv"><PildoraVivo grande enlace={false} /></div>
+      <div data-solo-vivo hidden={!vivo}>
+        <h1 class="display t-h1">Estamos en vivo</h1>
+        <p class="acento frase">gracias por conectarte</p>
+      </div>
+      <div data-solo-proximo hidden={vivo}>
+        <h1 class="display t-h2 rv" style="--rv-i:1">Próxima transmisión</h1>
+        <p class="cuenta rv" style="--rv-i:2" data-cuenta role="timer" aria-live="off">
+          <span class="dias" data-dias></span><span data-hms>--:--:--</span>
+        </p>
+        <p class="acento frase rv" style="--rv-i:3">te esperamos</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="modo-noche reproductor-sec" aria-label="Reproductor">
+    <div class="wrap">
+      <div class="video"><Reproductor /></div>
+      <div class="botones plataformas rv">
+        <a class="btn btn-primario" href={facebook.url} target="_blank" rel="noopener"><Icono nombre="facebook" />Ver en Facebook</a>
+        <a class="btn btn-primario" href={youtube.url} target="_blank" rel="noopener"><Icono nombre="youtube" />Ver en YouTube</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion modo-papel" aria-labelledby="t-txhor">
+    <div class="wrap">
+      <EncabezadoSeccion numero="01" kicker="Horarios de transmisión" titulo="Cuándo transmitimos" frase="bienvenidos a nuestra transmisión" id="t-txhor" />
+      <div class="horarios tx" style="margin-top:var(--s-7)">
+        {transmitidas.map((r) => <TarjetaHorario reunion={r} calendario descripcion />)}
+      </div>
+      <aside class="ayuda rv" aria-labelledby="t-ayuda">
+        <h2 class="micro" id="t-ayuda">¿Se cortó la transmisión?</h2>
+        <p>Recarga la página o entra directo a <a class="enlace" href={facebook.url} target="_blank" rel="noopener">Facebook</a> o <a class="enlace" href={youtube.url} target="_blank" rel="noopener">YouTube</a>. Si el reproductor dice que no hay transmisión, es porque todavía no empezamos: vuelve unos minutos antes de la hora.</p>
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .cabecera { position: relative; overflow: hidden; isolation: isolate; padding-block: 8rem var(--s-8); text-align: center; }
+  .cabecera .centro { position: relative; z-index: 2; display: grid; justify-items: center; gap: var(--s-4); }
+  .cabecera :global(.marco-tx) { top: calc(4rem + var(--s-3)); }
+  @media (min-width: 1024px) { .cabecera :global(.marco-tx) { top: calc(4.75rem + var(--s-4)); } .cabecera { padding-top: 10rem; } }
+  .cuenta { font-family: var(--f-display); font-size: clamp(3.5rem, 2rem + 6.5vw, 7.5rem); line-height: 1; font-variant-numeric: tabular-nums; text-shadow: var(--sh-texto); margin-top: var(--s-3); }
+  .cuenta .dias { color: var(--tn-celeste); }
+  .reproductor-sec { position: relative; padding-bottom: var(--seccion-y); background: var(--tn-abismo); }
+  .reproductor-sec .wrap { position: relative; z-index: 2; }
+  .video { max-width: 64rem; margin-inline: auto; }
+  .plataformas { justify-content: center; margin-top: var(--s-6); }
+  .tx { max-width: 26rem; }
+  .ayuda { margin-top: var(--s-8); padding: var(--s-5) var(--s-6); border-left: 4px solid var(--tn-logo); background: var(--tn-papel-2); border-radius: 0 var(--r-md) var(--r-md) 0; max-width: 44rem; }
+  .ayuda h2 { color: var(--tn-azul-tinta); margin-bottom: var(--s-2); }
+</style>

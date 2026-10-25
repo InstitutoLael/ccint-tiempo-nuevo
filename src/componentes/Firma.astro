@@ -1,0 +1,18 @@
+---
+// Firma compacta: isotipo + «TIEMPO NUEVO» + «CCINT · CALERA DE TANGO».
+import { ruta } from '../lib/datos';
+interface Props { variante?: 'horizontal' | 'vertical'; color?: 'blanco' | 'color' | 'doble'; enlace?: boolean }
+const { variante = 'horizontal', color = 'blanco', enlace = true } = Astro.props;
+const Tag = enlace ? 'a' : 'div';
+const iso = (c: string) => ruta(`/logo/isotipo-${c}.svg`);
+---
+<Tag class={`firma ${variante}`} href={enlace ? ruta('/') : undefined}>
+  {color === 'doble'
+    ? <><img class="iso-color" src={iso('color')} alt="" width="34" height="34" /><img class="iso-blanco" src={iso('blanco')} alt="" width="34" height="34" /></>
+    : <img src={iso(color)} alt="" width="72" height="72" />}
+  <span>
+    <span class="nombre">Tiempo Nuevo</span>
+    <span class="lugar">CCINT · Calera de Tango</span>
+  </span>
+  {enlace && <span class="sr-only">, ir al inicio</span>}
+</Tag>

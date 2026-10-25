@@ -1,0 +1,162 @@
+---
+import Base from '../layouts/Base.astro';
+import EncabezadoSeccion from '../componentes/EncabezadoSeccion.astro';
+import Foto from '../componentes/Foto.astro';
+import Placa from '../componentes/Placa.astro';
+import MarcaAgua from '../componentes/MarcaAgua.astro';
+import Marco from '../componentes/Marco.astro';
+import Rayos from '../componentes/Rayos.astro';
+import Icono from '../componentes/Icono.astro';
+import { iglesia, ruta, valor } from '../lib/datos';
+const { pastores: p, familia_espiritual: f, creemos, historia } = iglesia;
+const [primero, ...resto] = historia.texto;
+const generales = f.pastores_generales;
+---
+<Base titulo="Nosotros" descripcion={`Conoce a ${iglesia.nombre.marca}: una familia en ${iglesia.nombre.comuna}, guiada por los ${p.presentacion.replace('Pastores', 'pastores')}.`}>
+
+  <section class="seccion modo-papel intro" aria-labelledby="t-nos">
+    <MarcaAgua color="azul" />
+    <div class="wrap">
+      <EncabezadoSeccion kicker="Nosotros" titulo="Somos Tiempo Nuevo" frase="una familia en Calera de Tango" nivel={1} tamano="t-h1" id="t-nos" />
+    </div>
+  </section>
+
+  <section class="seccion modo-papel papel-2" aria-labelledby="t-hist">
+    <div class="wrap grilla hist">
+      <div class="hist-txt">
+        <EncabezadoSeccion numero="01" kicker="Nuestra historia" titulo="Una casa abierta" id="t-hist" />
+        <div class="columnas rv">
+          <p class="capitular">{primero}</p>
+          {resto.map((t) => <p>{t}</p>)}
+          <p>{f.red_lema}: así lo dice la familia de iglesias de la que somos parte, y así lo vivimos cada semana en Calera de Tango.</p>
+        </div>
+      </div>
+      <Foto archivo="escenario.jpg" alt="El escenario del templo: paneles de madera de pallet iluminados con luces azules y moradas" class="hist-foto rv" sizes="(min-width: 1024px) 40vw, 100vw" />
+    </div>
+  </section>
+
+  <section class="seccion modo-noche" aria-labelledby="t-creemos">
+    <MarcaAgua />
+    <Marco />
+    <div class="wrap grilla">
+      <div class="creemos-cab">
+        <EncabezadoSeccion numero="02" kicker="Qué creemos" titulo="Lo que nos mueve" frase="palabra, presencia y poder" id="t-creemos" />
+        <p class="lead rv" style="margin-top:var(--s-5)">{creemos.mision}</p>
+      </div>
+      <ol class="creemos" role="list">
+        {creemos.afirmaciones.map((a, i) => (
+          <li class="rv" style={`--rv-i:${i % 2}`}>
+            <span class="display contorno num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <div><h3 class="display t-h3">{a.t}</h3><p>{a.x}</p></div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="seccion modo-papel" aria-labelledby="t-past">
+    <div class="wrap grilla pastores">
+      <div class="past-foto">
+        <Foto archivo={p.foto} alt={`${p.presentacion}, de ${iglesia.nombre.marca}`} pendiente="retrato de los pastores, luz natural" class="retrato calida rv" sizes="(min-width: 1024px) 34vw, 100vw" posicion="50% 20%" />
+        <Placa class="past-placa" nombre={p.presentacion} titulo={`${iglesia.nombre.marca} · ${iglesia.nombre.comuna}`} />
+      </div>
+      <div class="past-txt">
+        <EncabezadoSeccion numero="03" kicker="Nuestros pastores" titulo="Pastores de esta casa" id="t-past" />
+        <ul class="nombres rv" role="list">
+          {p.personas.map((x) => <li><span class="micro">{x.rol}</span><b>{x.nombre}</b></li>)}
+        </ul>
+        <p class="cuerpo rv">{valor(p.texto)}</p>
+        <figure class="cita-pastor rv">
+          <blockquote><p class="acento">«{p.cita.texto}»</p></blockquote>
+          <figcaption class="kicker">{p.cita.autor}</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion modo-papel papel-2" aria-labelledby="t-fam">
+    <div class="wrap grilla familia">
+      <div class="fam-txt">
+        <EncabezadoSeccion numero="04" kicker="Nuestra familia" titulo={`Somos parte de ${f.red_sigla}`} frase={f.red_lema.toLowerCase()} id="t-fam" />
+        <p class="cuerpo rv" style="margin-top:var(--s-5)">{f.texto}</p>
+        <p class="rv" style="margin-top:var(--s-5)"><a class="btn btn-texto" href={f.red_url} target="_blank" rel="noopener">Conoce {f.red}</a></p>
+        <div class="predicando rv">
+          <Foto archivo={f.foto_predicando} alt={`El ${generales[0].titulo} ${generales[0].nombre} predicando`} class="pred-foto" sizes="15rem" posicion="50% 20%" />
+          <Placa nombre={`${generales[0].titulo} ${generales[0].nombre}`} titulo={`Predicando en ${f.red_sigla}`} chica />
+        </div>
+      </div>
+      <ul class="generales" role="list">
+        {generales.map((g, i) => (
+          <li class="rv" style={`--rv-i:${i}`}>
+            <Foto archivo={g.foto} alt={`${g.titulo} ${g.nombre}, ${f.red}`} class="retrato-g" sizes="(min-width: 1024px) 22vw, 50vw" posicion="50% 25%" />
+            <p class="micro">{g.titulo}</p>
+            <p class="display nombre-g">{g.nombre}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="seccion modo-noche cierre" aria-labelledby="t-lugar">
+    <Rayos />
+    <MarcaAgua />
+    <Marco />
+    <div class="wrap encabezado centro">
+      <p class="kicker rv">{iglesia.nombre.marca}</p>
+      <h2 class="display t-hero rv" id="t-lugar" style="--rv-i:1">Aquí hay lugar</h2>
+      <p class="acento frase rv" style="--rv-i:2">para ti</p>
+      <div class="regla rv" style="--rv-i:3;margin-top:var(--s-4)"></div>
+      <div class="botones rv" style="--rv-i:4;justify-content:center;margin-top:var(--s-6)">
+        <a class="btn btn-primario" href={ruta('/visitanos')}><Icono nombre="pin" />Visítanos</a>
+        <a class="btn btn-secundario" href={ruta('/ministerios')}>Ministerios</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .intro { padding-top: calc(var(--seccion-y) + 4rem); min-height: 56vh; display: grid; align-items: end; }
+  .hist { row-gap: var(--s-7); align-items: start; }
+  .columnas { margin-top: var(--s-6); display: grid; gap: var(--s-4); }
+  .capitular::first-letter { font-family: var(--f-display); float: left; font-size: 5.6em; line-height: .82; margin: .06em .12em 0 0; color: var(--tn-logo); }
+  .hist :global(.hist-foto) { aspect-ratio: 3 / 2; border-radius: var(--r-xl); box-shadow: var(--sh-papel); }
+  @media (min-width: 768px) { .columnas { columns: 2; column-gap: var(--s-7); display: block; } .columnas p + p { margin-top: var(--s-4); } }
+  @media (min-width: 1024px) {
+    .hist-txt { grid-column: 1 / span 7; }
+    .hist :global(.hist-foto) { grid-column: 9 / span 4; margin-right: calc(-1 * max(var(--gutter), (100vw - var(--ancho)) / 2)); border-radius: var(--r-xl) 0 0 var(--r-xl); aspect-ratio: 4 / 5; }
+  }
+  .creemos { margin-top: var(--s-7); display: grid; gap: var(--s-6); }
+  .creemos li { display: grid; grid-template-columns: 4.5rem 1fr; gap: var(--s-4); align-items: start; }
+  .creemos .num { font-size: 4rem; line-height: .9; }
+  .creemos p { color: var(--tn-niebla); margin-top: var(--s-2); }
+  @media (min-width: 1024px) {
+    .creemos-cab { grid-column: 1 / span 5; }
+    .creemos { grid-column: 7 / span 6; margin-top: 0; }
+  }
+  .pastores, .familia { row-gap: var(--s-7); align-items: center; }
+  .past-foto { position: relative; }
+  .pastores :global(.retrato) { aspect-ratio: 4 / 5; border-radius: var(--r-lg); box-shadow: var(--sh-papel); }
+  .pastores :global(.past-placa) { position: relative; margin: calc(-1 * var(--s-8)) var(--s-4) 0; z-index: 2; }
+  .nombres { display: grid; gap: var(--s-3); margin-block: var(--s-6) var(--s-5); }
+  .nombres li { display: grid; }
+  .nombres .micro { color: var(--tn-azul-tinta); }
+  .nombres b { font-family: var(--f-display); font-weight: 400; font-size: var(--t-h3); text-transform: uppercase; color: var(--tn-logo); line-height: 1.1; }
+  .cita-pastor { margin-top: var(--s-6); padding-left: var(--s-5); border-left: 4px solid var(--tn-acento); }
+  .cita-pastor .acento { font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); color: var(--tn-logo); }
+  .cita-pastor figcaption { margin-top: var(--s-3); }
+  @media (min-width: 1024px) {
+    .past-foto { grid-column: 1 / span 5; }
+    .past-txt { grid-column: 7 / span 6; }
+    .fam-txt { grid-column: 1 / span 5; }
+    .generales { grid-column: 7 / span 6; }
+  }
+  .generales { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); }
+  .generales :global(.retrato-g) { aspect-ratio: 4 / 5; border-radius: var(--r-lg); box-shadow: var(--sh-papel); }
+  .generales .micro { color: var(--tn-azul-tinta); margin-top: var(--s-4); }
+  .nombre-g { font-size: var(--t-h3); line-height: 1.05; color: var(--tn-logo); margin-top: var(--s-1); }
+  .predicando { margin-top: var(--s-7); display: grid; grid-template-columns: 6.5rem 1fr; gap: var(--s-4); align-items: center; }
+  .predicando :global(.pred-foto) { aspect-ratio: 4 / 5; border-radius: var(--r-md); }
+  .predicando :global(.placa .chip) { display: none; }
+  .predicando :global(.placa .txt) { border-radius: var(--r-md); }
+  .cierre { padding-block: calc(var(--seccion-y) * 1.3); }
+</style>

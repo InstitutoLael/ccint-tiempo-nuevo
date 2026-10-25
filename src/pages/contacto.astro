@@ -1,0 +1,101 @@
+---
+import Base from '../layouts/Base.astro';
+import EncabezadoSeccion from '../componentes/EncabezadoSeccion.astro';
+import MarcaAgua from '../componentes/MarcaAgua.astro';
+import Marco from '../componentes/Marco.astro';
+import Icono from '../componentes/Icono.astro';
+import { iglesia, ruta, correo, facebook, instagram } from '../lib/datos';
+const endpoint = iglesia.contacto.formulario_endpoint;
+---
+<Base titulo="Contacto" descripcion={`Escríbele a ${iglesia.nombre.marca} en ${iglesia.nombre.comuna} por Instagram, Facebook o correo, o deja tu petición de oración.`}>
+
+  <section class="seccion modo-papel intro" aria-labelledby="t-con">
+    <MarcaAgua color="azul" />
+    <div class="wrap">
+      <EncabezadoSeccion kicker="Contacto" titulo="Escríbenos" frase="nos encantará saber de ti" nivel={1} tamano="t-h1" id="t-con" />
+    </div>
+  </section>
+
+  <section class="seccion modo-papel papel-2" aria-labelledby="t-directo">
+    <div class="wrap grilla directo">
+      <div class="dir-cab">
+        <EncabezadoSeccion numero="01" kicker="Contacto directo" titulo="Por donde te acomode" id="t-directo" />
+        <p class="cuerpo rv" style="margin-top:var(--s-5)">Escríbenos un mensaje directo por Instagram o Facebook: alguien del equipo te responde.</p>
+      </div>
+      <ul class="canales" role="list">
+        <li class="rv"><a href={instagram.mensaje_url} target="_blank" rel="noopener"><span class="chip-red"><Icono nombre="instagram" /></span><span><b>Instagram</b>{instagram.usuario}</span><Icono nombre="flecha" class="icono fl" /></a></li>
+        <li class="rv" style="--rv-i:1"><a href={facebook.mensaje_url} target="_blank" rel="noopener"><span class="chip-red"><Icono nombre="facebook" /></span><span><b>Facebook Messenger</b>{facebook.usuario}</span><Icono nombre="flecha" class="icono fl" /></a></li>
+        {correo && <li class="rv" style="--rv-i:2"><a href={`mailto:${correo}`}><span class="chip-red"><Icono nombre="correo" /></span><span><b>Correo</b>{correo}</span><Icono nombre="flecha" class="icono fl" /></a></li>}
+      </ul>
+    </div>
+  </section>
+
+  <section class="seccion modo-noche" id="oracion" aria-labelledby="t-oracion">
+    <MarcaAgua />
+    <Marco />
+    <div class="wrap grilla oracion">
+      <div class="or-cab">
+        <EncabezadoSeccion numero="02" kicker="Petición de oración" titulo="Oramos contigo" frase="no tienes que cargarlo solo" id="t-oracion" />
+        <p class="lead rv" style="margin-top:var(--s-5)">Cuéntanos por qué quieres que oremos. Puedes hacerlo sin dar tu nombre.</p>
+      </div>
+      <div class="or-form">
+        <form class="form" data-oracion data-endpoint={endpoint ?? undefined} data-mensaje={instagram.mensaje_url} method="post" action={endpoint ?? instagram.mensaje_url} novalidate>
+          <div class="campo">
+            <label for="f-nombre">Nombre <span class="ayuda">(opcional)</span></label>
+            <input id="f-nombre" name="nombre" type="text" autocomplete="name" />
+          </div>
+          <div class="campo">
+            <label for="f-contacto">Correo o teléfono <span class="ayuda">(opcional)</span></label>
+            <input id="f-contacto" name="contacto" type="text" autocomplete="email" />
+          </div>
+          <div class="campo">
+            <label for="f-motivo">¿Por qué quieres que oremos?</label>
+            <textarea id="f-motivo" name="motivo" required maxlength="1000" aria-describedby="f-motivo-ayuda f-motivo-error"></textarea>
+            <p class="ayuda" id="f-motivo-ayuda" data-contador>0 de 1000 caracteres</p>
+            <p class="error" id="f-motivo-error" data-error-motivo hidden>Escribe tu petición para poder enviarla.</p>
+          </div>
+          <label class="casilla"><input type="checkbox" name="quiere_contacto" value="si" /> <span>Quiero que me contacten</span></label>
+          <label class="casilla"><input type="checkbox" name="confidencial" value="si" /> <span>Que esta petición sea confidencial (solo pastores)</span></label>
+          <div class="trampa" aria-hidden="true"><label for="f-sitio">No llenar</label><input id="f-sitio" name="sitio_web" type="text" tabindex="-1" autocomplete="off" /></div>
+          <div class="botones">
+            <button class="btn btn-primario" type="submit"><span>{endpoint ? 'Enviar petición' : 'Enviar por Instagram'}</span></button>
+          </div>
+          <p class="estado" role="status" data-estado-form></p>
+          <p class="privacidad">
+            {endpoint
+              ? 'Tu petición la leen solo los pastores y el equipo de oración. No la compartimos con nadie ni la usamos para otra cosa.'
+              : 'Al enviar, copiamos tu petición y abrimos un mensaje directo a la cuenta de Instagram de la iglesia: solo tienes que pegarla y enviarla. La leen los pastores y el equipo de oración; no la compartimos con nadie.'}
+          </p>
+        </form>
+        <div class="exito" data-oracion-exito tabindex="-1" hidden>
+          <p class="display t-h1">Gracias</p>
+          <p class="acento frase">estaremos orando por ti</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .intro { padding-top: calc(var(--seccion-y) + 4rem); min-height: 50vh; display: grid; align-items: end; }
+  .directo, .oracion { row-gap: var(--s-7); align-items: start; }
+  .canales { display: grid; gap: var(--s-3); }
+  .canales a {
+    display: grid; grid-template-columns: auto 1fr auto; gap: var(--s-4); align-items: center; padding: var(--s-4) var(--s-5);
+    background: var(--tn-blanco); border-radius: var(--r-lg); box-shadow: var(--sh-papel); text-decoration: none; color: var(--tn-tinta);
+    border-left: 4px solid var(--tn-logo); transition: transform var(--d-base) var(--e-salida);
+  }
+  .canales a:hover { transform: translateX(4px); }
+  .canales b { display: block; color: var(--tn-logo); }
+  .canales span:not(.chip-red) { overflow-wrap: anywhere; font-size: var(--t-sm); color: var(--tn-gris); }
+  .canales b { font-size: 1.0625rem; }
+  .canales :global(.fl) { color: var(--tn-azul-tinta); }
+  .form { display: grid; gap: var(--s-5); }
+  .estado { color: var(--tn-celeste); font-weight: 700; min-height: 1.5em; }
+  .privacidad { font-size: var(--t-sm); color: var(--tn-niebla); max-width: 34rem; }
+  .exito { padding: var(--s-7) 0; }
+  @media (min-width: 1024px) {
+    .dir-cab, .or-cab { grid-column: 1 / span 5; }
+    .canales, .or-form { grid-column: 7 / span 6; }
+  }
+</style>

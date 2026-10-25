@@ -1,0 +1,14 @@
+---
+// Estado de la transmisión. El HTML sale con el estado calculado en el build y el navegador lo corrige cada 30 s.
+import { datosHorario, ruta } from '../lib/datos';
+import { enVivo, proxima } from '../lib/horario';
+interface Props { grande?: boolean; enlace?: boolean; class?: string }
+const { grande = false, enlace = true, class: clase = '' } = Astro.props;
+const vivo = enVivo(datosHorario);
+const prox = proxima(datosHorario, new Date(), true);
+const texto = vivo ? 'En vivo' : prox ? `Próximo: ${prox.r.dia_corto} ${prox.r.hora}` : 'En vivo';
+const Tag = enlace ? 'a' : 'span';
+---
+<Tag class:list={['vivo', clase, { grande }]} data-vivo data-estado={vivo ? 'en-vivo' : 'proximo'} href={enlace ? ruta('/en-vivo') : undefined} role={enlace ? undefined : 'status'}>
+  <i aria-hidden="true"></i><span data-vivo-texto>{texto}</span>
+</Tag>
