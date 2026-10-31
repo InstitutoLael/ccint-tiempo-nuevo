@@ -114,6 +114,7 @@ const ministerios = iglesia.ministerios.slice(0, 5);
           </li>
         ))}
       </ul>
+      <Foto archivo="danza-exaltarte-2.jpg" alt="El ministerio de danza Exaltarte adorando en el culto" class="min-foto rv" sizes="(min-width: 1280px) 1200px, 100vw" posicion="50% 45%" />
       <p class="rv" style="margin-top:var(--s-6)"><a class="btn btn-texto" href={ruta('/ministerios')}>Ver todos los ministerios</a></p>
     </div>
   </section>
@@ -200,6 +201,8 @@ const ministerios = iglesia.ministerios.slice(0, 5);
   .lista-min li { display: grid; gap: var(--s-2); padding-block: var(--s-5); border-bottom: 1px solid var(--tn-linea-p); }
   .lista-min h3 { color: var(--tn-logo); }
   .lista-min p { max-width: 36rem; }
+  :global(.min-foto) { margin-top: var(--s-7); aspect-ratio: 21 / 9; border-radius: var(--r-lg); box-shadow: var(--sh-papel); }
+  @media (max-width: 767px) { :global(.min-foto) { aspect-ratio: 4 / 3; } }
   .lista-min b { color: var(--tn-azul-tinta); font-weight: 700; }
   @media (min-width: 768px) { .lista-min li { grid-template-columns: 5fr 7fr; align-items: baseline; gap: var(--s-6); } }
 

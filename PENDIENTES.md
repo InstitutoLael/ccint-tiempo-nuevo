@@ -9,6 +9,7 @@ El sitio ya funciona con estos datos tal como están; esto es lo que falta verif
 | Pastores David Núñez A. y Rosita Jara C. | **Temporal**: se usa la del sitio anterior (605 px, baja resolución) | `pastores → foto` |
 | Apóstol Billy Bunster y Pastora Claudia Bunster | **Listo**: retratos oficiales de ccint.cl (720 px) y un recorte de la miniatura del video «Desenmascarando al enemigo». **Pedir permiso a CCI** antes de publicar | `familia_espiritual` |
 | Muro de bienvenida «Aquí hay lugar para ti», de noche con el logo iluminado | Falta | Inicio (sección 2) y cierre de Nosotros |
+| Danza Exaltarte | **Listo (31-10-2026)**: 3 cuadros 4K del video de la danza, con autorización de las dancistas (`danza-exaltarte-1..3.jpg`) | Ministerios, Inicio |
 | Escenario con luces azules/moradas, plano general, buena resolución | **Temporal**: recorte de un video de la transmisión (790 px) | Portada, reproductor, Nosotros |
 | Alabanza desde atrás (espaldas, manos, contraluz real) | Falta | Inicio |
 | Fachada / entrada del templo, de día | Falta | Visítanos → Cómo llegar |

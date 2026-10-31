@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import EncabezadoSeccion from '../componentes/EncabezadoSeccion.astro';
 import MarcaAgua from '../componentes/MarcaAgua.astro';
 import Marco from '../componentes/Marco.astro';
+import Foto from '../componentes/Foto.astro';
 import { iglesia, ruta, valor, instagram, facebook } from '../lib/datos';
 ---
 <Base titulo="Ministerios" descripcion={`Ministerios de ${iglesia.nombre.marca} en ${iglesia.nombre.comuna}: Escuela Bíblica, preadolescentes, adolescentes, jóvenes, mujeres, varones, matrimonios, danza y servidores.`}>
@@ -29,6 +30,9 @@ import { iglesia, ruta, valor, instagram, facebook } from '../lib/datos';
                 <p>{m.texto}</p>
                 {cuando && <p class="cuando micro">{cuando}</p>}
               </div>
+              {'foto' in m && m.foto && (
+                <Foto archivo={m.foto} alt={m.foto_alt ?? m.nombre} class="min-foto" sizes="(min-width: 1024px) 70vw, 100vw" posicion="50% 40%" />
+              )}
             </li>
           );
         })}
@@ -60,8 +64,10 @@ import { iglesia, ruta, valor, instagram, facebook } from '../lib/datos';
   .det { grid-column: 2; max-width: 34rem; display: grid; gap: var(--s-2); }
   .para { font-weight: 700; color: var(--tn-azul-tinta); }
   .cuando { color: var(--tn-gris); margin-top: var(--s-1); }
+  .lista :global(.min-foto) { grid-column: 1 / -1; aspect-ratio: 16 / 9; border-radius: var(--r-lg); box-shadow: var(--sh-papel); margin-top: var(--s-4); }
   @media (min-width: 1024px) {
     .lista li { grid-template-columns: 3rem 6fr 5fr; gap: var(--s-6); align-items: baseline; }
     .det { grid-column: 3; }
+    .lista :global(.min-foto) { grid-column: 2 / -1; }
   }
 </style>
