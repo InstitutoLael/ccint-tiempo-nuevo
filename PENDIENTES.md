@@ -26,6 +26,9 @@ Recomendación de toma: celular en horizontal, luz natural para retratos, 2000 p
 - Escuela Bíblica (5 a 9 años): domingos durante el culto.
 - Ministerios: Preadolescentes (9 a 12 años, domingos durante el culto) · Jóvenes y Adolescentes (12 a 17 años, viernes por medio, 20:00) · Mujeres (lunes 18:00) · Varones (sábados por medio, 18:00) · Danza (reflexión los martes, ensayos sábados por medio a las 10:00).
 - Estacionamiento: sí hay (agregado a «Cómo llegar» y a las preguntas frecuentes).
+- (31-10-2026) La reunión del viernes no tiene nombre propio: queda como «Reunión general».
+- (31-10-2026) Dominio: **iglesiatiemponuevo.cl**, inscrito en NIC Chile y administrado por Diego; DNS en Cloudflare. Sitio publicado en Cloudflare Pages (proyecto `ccint-tiempo-nuevo`).
+- (31-10-2026) Aviso del aniversario en el inicio (`aviso` en iglesia.json): sábado 5 de diciembre, con el Apóstol Billy Bunster. Falta la **hora**; se oculta solo después del 5 de diciembre.
 
 ### Falta
 
@@ -41,8 +44,7 @@ Recomendación de toma: celular en horizontal, luz natural para retratos, 2000 p
 10. **Versículo lema**: se usa Isaías 43:19 («He aquí que yo hago cosa nueva…»). ¿Tienen otro?
 11. **«Compartimos» después del culto** (paso 5 de «Tu primera vez»): ¿siempre hay tiempo para saludarse, o hay café?
 12. **Nombre legal**: «Iglesia Evangélica Integral Tiempo Nuevo».
-13. **Dominio**: `tiemponuevo.cl` o `ccinttiemponuevo.cl` (NIC Chile). Quién lo paga y administra.
-14. **Hosting**: queda listo para Cloudflare Pages (ver README). El formulario de oración hoy copia la petición y abre un mensaje directo de Instagram; para que envíe directo se puede usar Formspree (poner la URL en `contacto → formulario_endpoint`) o una función de Cloudflare más adelante.
+13. **Formulario de oración**: el formulario de oración hoy copia la petición y abre un mensaje directo de Instagram; para que envíe directo se puede usar Formspree (poner la URL en `contacto → formulario_endpoint`) o una función de Cloudflare más adelante.
 
 ## Recomendación
 

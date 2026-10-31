@@ -119,6 +119,16 @@
       "transmite": true
     }
   ],
+  "aviso": {
+    "_nota": "Aviso breve en el inicio. Para ocultarlo: \"activo\": false. Se oculta solo después de la fecha de \"hasta\".",
+    "activo": true,
+    "kicker": "Aniversario",
+    "titulo": "Celebramos un año más de Tiempo Nuevo",
+    "fecha": "Sábado 5 de diciembre",
+    "hora": null,
+    "texto": "Con la visita del Apóstol Billy Bunster. «La gloria del Señor brilla sobre ti» (Isaías 60:1). Te esperamos.",
+    "hasta": "2026-12-05T23:59:00-03:00"
+  },
   "duracion_culto": "Cerca de dos horas y media",
   "zona_horaria": "America/Santiago",
   "transmision": {

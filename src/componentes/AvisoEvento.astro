@@ -1,0 +1,41 @@
+---
+// Aviso breve en el inicio (por ejemplo, el aniversario). Se edita en iglesia.json → aviso.
+// No se muestra si "activo" es false o si ya pasó la fecha de "hasta" (al compilar y en el navegador).
+import { iglesia } from '../lib/datos';
+import Icono from './Icono.astro';
+
+const a = iglesia.aviso;
+const vigente = a && a.activo && Date.now() <= Date.parse(a.hasta);
+---
+{vigente && (
+  <aside class="aviso rv" data-hasta={a.hasta} aria-label={a.kicker}>
+    <p class="kicker">{a.kicker}</p>
+    <div class="aviso-cuerpo">
+      <p class="display t-h3 aviso-titulo">{a.titulo}</p>
+      <p class="aviso-fecha"><Icono nombre="calendario" />{a.fecha}{a.hora && ` · ${a.hora} hrs`}</p>
+      <p class="aviso-texto">{a.texto}</p>
+    </div>
+  </aside>
+)}
+
+<style>
+  .aviso {
+    display: grid; gap: var(--s-3);
+    padding: var(--s-5) var(--s-5) var(--s-5) calc(var(--s-5) + 3px);
+    margin-bottom: var(--s-8);
+    background: var(--tn-papel-2);
+    border: 1px solid var(--tn-linea-p);
+    border-left: 3px solid var(--tn-azul);
+    border-radius: var(--r-md);
+  }
+  .aviso .kicker { color: var(--tn-azul-tinta); }
+  .aviso-cuerpo { display: grid; gap: var(--s-2); }
+  .aviso-titulo { color: var(--tn-logo); }
+  .aviso-fecha { display: flex; align-items: center; gap: var(--s-2); font-weight: 600; color: var(--tn-tinta); }
+  .aviso-fecha :global(svg) { color: var(--tn-azul-tinta); }
+  .aviso-texto { color: var(--tn-gris); max-width: 42rem; }
+  @media (min-width: 1024px) {
+    .aviso { grid-template-columns: 12rem 1fr; align-items: start; gap: var(--s-6); padding: var(--s-6); }
+    .aviso .kicker { margin-top: .35rem; }
+  }
+</style>

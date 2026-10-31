@@ -185,3 +185,9 @@ if (form) {
     }
   });
 }
+
+/* ---------- Avisos con fecha de término ---------- */
+$$('[data-hasta]').forEach((el) => {
+  const hasta = Date.parse(el.dataset.hasta ?? '');
+  if (hasta && Date.now() > hasta) el.hidden = true;
+});

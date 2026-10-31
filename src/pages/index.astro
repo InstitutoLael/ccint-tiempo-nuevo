@@ -11,6 +11,7 @@ import MarcaAgua from '../componentes/MarcaAgua.astro';
 import Rayos from '../componentes/Rayos.astro';
 import Marco from '../componentes/Marco.astro';
 import Icono from '../componentes/Icono.astro';
+import AvisoEvento from '../componentes/AvisoEvento.astro';
 import { iglesia, ruta, principal, mapaUrl, facebook, youtube, valor } from '../lib/datos';
 
 const titular = 'Aquí hay lugar';
@@ -55,6 +56,7 @@ const ministerios = iglesia.ministerios.slice(0, 5);
   <!-- S2 · Te esperamos -->
   <section class="seccion modo-papel" aria-labelledby="t-reuniones">
     <div class="wrap">
+      <AvisoEvento />
       <EncabezadoSeccion numero="01" kicker="Te esperamos" titulo="Nuestras reuniones" frase="ven tal como estás" id="t-reuniones" />
       <div class="horarios" style="margin-top:var(--s-7)">
         {iglesia.reuniones.map((r) => <TarjetaHorario reunion={r} />)}
