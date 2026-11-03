@@ -440,25 +440,83 @@ ul[role="list"], ol[role="list"] { list-style: none; }
   .brillo::after, .vivo i { animation: none; }
 }
 
-/* ---------- Footer ---------- */
+/* ---------- Footer: cierre de la visita ---------- */
 .footer { background: var(--tn-noche); color: var(--tn-blanco); position: relative; overflow: hidden; padding-block: var(--s-9) var(--s-6); }
 .footer .wrap { position: relative; z-index: 2; }
-.footer .cols { display: grid; gap: var(--s-7); }
-@media (min-width: 768px) { .footer .cols { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .footer .cols { grid-template-columns: 1.3fr 1fr 1fr 1fr; } }
-.footer .col-firma { display: grid; justify-items: start; gap: var(--s-4); }
-.footer h2 { font-weight: 800; font-size: var(--t-kicker); letter-spacing: var(--tr-kicker); text-transform: uppercase; color: var(--tn-celeste); margin-bottom: var(--s-4); }
-.footer ul { list-style: none; display: grid; gap: var(--s-3); }
-.footer .reunion { display: grid; grid-template-columns: 5.25rem 3.25rem 1fr; gap: var(--s-2); color: var(--tn-niebla); font-weight: 500; }
-.footer .reunion b { color: var(--tn-blanco); font-variant-numeric: tabular-nums; }
-.footer address { font-style: normal; color: var(--tn-niebla); }
-.footer .redes { display: flex; gap: var(--s-3); flex-wrap: wrap; }
-.footer a.texto { color: var(--tn-niebla); text-underline-offset: .2em; }
-.footer a.texto:hover { color: var(--tn-blanco); }
-.footer .base {
-  margin-top: var(--s-9); padding-top: var(--s-5); border-top: 1px solid var(--tn-linea-o);
-  display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6); justify-content: space-between; font-size: var(--t-sm); color: var(--tn-niebla);
-}
-.footer .base ul { display: flex; flex-wrap: wrap; gap: 0 var(--s-5); }
-.footer .base a { color: var(--tn-niebla); min-height: 2.75rem; display: inline-flex; align-items: center; }
 .footer .marca-agua { right: -10%; bottom: -30%; opacity: .04; }
+/* Luz cálida detrás del cierre (no en todo el bloque) */
+.footer::before {
+  content: ""; position: absolute; z-index: 1; pointer-events: none;
+  left: 50%; top: -8rem; width: min(70rem, 140vw); aspect-ratio: 2 / 1; transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(30,63,130,.55), transparent 70%);
+}
+.cierre { display: grid; justify-items: center; text-align: center; gap: var(--s-3); padding-bottom: var(--s-9); }
+.cierre .kicker { justify-content: center; }
+.cierre-titulo { font-size: var(--t-h1); line-height: .95; text-shadow: var(--sh-texto); }
+.cierre-frase { font-size: var(--t-acento); color: var(--tn-hueso); margin-top: calc(-1 * var(--s-3)); }
+.cierre-lead { color: var(--tn-niebla); max-width: 34rem; margin-top: var(--s-2); }
+.cierre-botones { justify-content: center; margin-top: var(--s-4); }
+.cierre-botones .btn-secundario { color: var(--tn-blanco); }
+.copiar-dir[data-ok] { background: var(--tn-exito); box-shadow: none; }
+@media (max-width: 479px) { .cierre-botones .btn { width: 100%; } }
+
+.footer .cols { display: grid; gap: var(--s-7); padding-top: var(--s-8); border-top: 1px solid var(--tn-linea-o); }
+@media (min-width: 768px) { .footer .cols { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .footer .cols { grid-template-columns: 1.4fr 1.2fr 1fr .9fr; } }
+.footer h2:not(.cierre-titulo) { font-weight: 800; font-size: var(--t-kicker); letter-spacing: var(--tr-kicker); text-transform: uppercase; color: var(--tn-celeste); margin-bottom: var(--s-4); }
+.footer ul { list-style: none; display: grid; gap: var(--s-3); }
+.footer .reunion { display: grid; grid-template-columns: 5.25rem 3.25rem 1fr; gap: var(--s-2); align-items: baseline; color: var(--tn-niebla); font-weight: 500; }
+.footer .reunion b { color: var(--tn-blanco); font-variant-numeric: tabular-nums; }
+.footer .reunion .ahora { font-style: normal; font-size: .6875rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--tn-noche); background: var(--tn-celeste); border-radius: var(--r-pill); padding: .15rem .5rem; margin-left: .35rem; white-space: nowrap; vertical-align: .1em; }
+.footer address { font-style: normal; color: var(--tn-niebla); }
+.footer .mapas { margin-top: var(--s-3); display: flex; gap: var(--s-5); }
+.footer .icono-mini { width: .875rem; height: .875rem; margin-left: .35em; vertical-align: -.1em; opacity: .7; }
+.footer .redes { display: flex; gap: var(--s-3); flex-wrap: wrap; }
+.footer a.texto { color: var(--tn-niebla); min-height: 2.75rem; display: inline-flex; align-items: center; }
+.footer a.texto:hover, .footer a.texto:focus-visible { color: var(--tn-blanco); }
+.footer .nav-pie { gap: 0; }
+@media (max-width: 767px) { .footer .nav-pie { grid-template-columns: 1fr 1fr; column-gap: var(--s-5); } }
+.footer .base {
+  margin-top: var(--s-8); padding-top: var(--s-5); border-top: 1px solid var(--tn-linea-o);
+  display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-6); justify-content: space-between; align-items: center; font-size: var(--t-sm); color: var(--tn-niebla);
+}
+
+/* ---------- Microinteracciones (31-10 / 03-11-2026) ----------
+   Una sola curva (--e-salida) y tres duraciones: 180 ms respuesta, 320 ms cambio de estado, 1000 ms escena.
+   Todo se apaga con «reducir movimiento» porque los tokens de duración pasan a 0 ms. */
+@media (hover: hover) {
+  .btn-primario:hover { transform: translateY(-2px); box-shadow: 0 16px 30px -14px rgba(26,111,176,.9); }
+  .btn-secundario:hover { transform: translateY(-2px); }
+  .horario { transition: transform var(--d-rapido) var(--e-salida), box-shadow var(--d-base) var(--e-salida); }
+  .horario:hover { transform: translateY(-2px); box-shadow: 0 24px 44px -22px rgba(28,34,51,.35); }
+  .lista-min li h3, .lista li h2 { transition: color var(--d-base) var(--e-salida), transform var(--d-base) var(--e-salida); }
+  .lista-min li:hover h3, .lista li:hover h2 { color: var(--tn-azul); transform: translateX(6px); }
+}
+.btn:active, .copiar:active, .chip-red:active { transform: translateY(1px) scale(.98); }
+
+/* Enlaces: el subrayado se «enciende» */
+.enlace, .footer a.texto { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .25em;
+  text-decoration-color: color-mix(in srgb, currentColor 30%, transparent); transition: text-decoration-color var(--d-rapido) var(--e-salida), color var(--d-rapido) var(--e-salida); }
+.enlace:hover, .footer a.texto:hover, .footer a.texto:focus-visible { text-decoration-color: currentColor; }
+
+/* Confirmación al copiar: el botón «late» una vez */
+.copiar[data-ok], .copiar-todo[data-ok], .copiar-dir[data-ok] { animation: confirma 420ms var(--e-salida); }
+@keyframes confirma { 40% { transform: scale(1.06); } }
+
+/* Preguntas frecuentes: abren y cierran con altura animada donde el navegador lo permite */
+@supports (interpolate-size: allow-keywords) {
+  .preguntas { interpolate-size: allow-keywords; }
+  .preguntas details::details-content { block-size: 0; overflow: clip; transition: block-size var(--d-base) var(--e-salida), content-visibility var(--d-base) allow-discrete; }
+  .preguntas details[open]::details-content { block-size: auto; }
+}
+
+/* En celular la aparición no usa desenfoque: se ve igual de suave y gasta mucho menos */
+@media (max-width: 767px) {
+  .js .rv { filter: none; transform: translateY(18px); }
+  @keyframes rv { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn:active, .copiar:active, .chip-red:active, .horario:hover, .btn:hover { transform: none; }
+  .copiar[data-ok], .copiar-todo[data-ok], .copiar-dir[data-ok] { animation: none; }
+  .lista-min li:hover h3, .lista li:hover h2 { transform: none; }
+}

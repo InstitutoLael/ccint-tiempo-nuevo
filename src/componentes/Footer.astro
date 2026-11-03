@@ -1,27 +1,55 @@
 ---
-import { iglesia, ruta, correo, facebook, instagram, youtube, mapaUrl } from '../lib/datos';
+// Footer = cierre de la visita: vuelve la frase de la portada, ahora con todo lo necesario para llegar.
+import { iglesia, ruta, correo, facebook, instagram, youtube, mapaUrl, wazeUrl, principal } from '../lib/datos';
 import Firma from './Firma.astro';
 import MarcaAgua from './MarcaAgua.astro';
 import Icono from './Icono.astro';
+
+const direccion = `${iglesia.direccion.texto}, ${iglesia.direccion.comuna}`;
+const paginas = [
+  ['/visitanos', 'Visítanos'], ['/en-vivo', 'En vivo'], ['/nosotros', 'Nosotros'], ['/ministerios', 'Ministerios'],
+  ['/ofrendas', 'Ofrendas'], ['/contacto', 'Contacto'], ['/primer-paso', 'Acepté a Jesús'],
+];
 ---
 <footer class="footer modo-noche">
   <MarcaAgua />
   <div class="wrap">
-    <div class="cols">
-      <div class="col-firma">
-        <Firma variante="vertical" />
-        <p class="acento" style="font-size:1.75rem;color:var(--tn-hueso)">aquí hay lugar para ti</p>
+
+    <!-- Cierre: la invitación de la portada, con lo necesario para venir -->
+    <section class="cierre" aria-labelledby="pie-cierre">
+      <p class="kicker rv">CCINT · {iglesia.nombre.comuna}</p>
+      <h2 class="display cierre-titulo rv" id="pie-cierre" style="--rv-i:1">Aquí hay lugar</h2>
+      <p class="acento cierre-frase rv" style="--rv-i:2">para ti</p>
+      <p class="lead cierre-lead rv" style="--rv-i:3">
+        Te esperamos <span data-proxima-principal>este {principal.dia.toLowerCase()} a las {principal.hora}</span>, tal como estás.
+      </p>
+      <div class="botones cierre-botones rv" style="--rv-i:4">
+        <a class="btn btn-primario" href={ruta('/visitanos#como-llegar')}><Icono nombre="pin" />Cómo llegar</a>
+        <button class="btn btn-secundario copiar-dir" type="button" data-copiar={direccion} data-etiqueta="Dirección" data-aviso="Dirección copiada">
+          <Icono nombre="copiar" /><span data-texto>Copiar dirección</span>
+        </button>
       </div>
+      <p class="sr-only" role="status" aria-live="polite" data-aviso-copia></p>
+    </section>
+
+    <div class="cols">
       <section aria-labelledby="pie-reuniones">
-        <h2 id="pie-reuniones">Te esperamos</h2>
+        <h2 id="pie-reuniones">Reuniones</h2>
         <ul>
-          {iglesia.reuniones.map((r) => <li class="reunion"><span>{r.dia}</span><b>{r.hora}</b><span>{r.nombre}</span></li>)}
+          {iglesia.reuniones.map((r) => (
+            <li class="reunion" data-reunion={r.id}>
+              <span>{r.dia}</span><b>{r.hora}</b><span>{r.nombre} <em class="ahora" data-proxima hidden>Próxima</em></span>
+            </li>
+          ))}
         </ul>
       </section>
       <section aria-labelledby="pie-donde">
         <h2 id="pie-donde">Dónde estamos</h2>
         <address>{iglesia.direccion.texto}<br />{iglesia.direccion.comuna}, {iglesia.nombre.region}</address>
-        <p style="margin-top:var(--s-3)"><a class="btn btn-texto" href={mapaUrl} target="_blank" rel="noopener" style="color:var(--tn-celeste)">Abrir en el mapa</a></p>
+        <ul class="mapas">
+          <li><a class="texto" href={mapaUrl} target="_blank" rel="noopener">Google Maps<Icono nombre="externo" class="icono-mini" /></a></li>
+          <li><a class="texto" href={wazeUrl} target="_blank" rel="noopener">Waze<Icono nombre="externo" class="icono-mini" /></a></li>
+        </ul>
       </section>
       <section aria-labelledby="pie-redes">
         <h2 id="pie-redes">Síguenos</h2>
@@ -33,15 +61,17 @@ import Icono from './Icono.astro';
         {correo && <p style="margin-top:var(--s-4)"><a class="texto" href={`mailto:${correo}`}>{correo}</a></p>}
         <p style="margin-top:var(--s-4)"><a class="texto" href={instagram.mensaje_url} target="_blank" rel="noopener">Escríbenos por Instagram</a></p>
       </section>
+      <nav aria-labelledby="pie-nav">
+        <h2 id="pie-nav">El sitio</h2>
+        <ul class="nav-pie">
+          {paginas.map(([href, txt]) => <li><a class="texto" href={ruta(href)}>{txt}</a></li>)}
+        </ul>
+      </nav>
     </div>
+
     <div class="base">
+      <Firma />
       <p>© {new Date().getFullYear()} {iglesia.nombre.marca} · {iglesia.nombre.comuna}, {iglesia.nombre.pais}</p>
-      <ul>
-        <li><a href={ruta('/ministerios')}>Ministerios</a></li>
-        <li><a href={ruta('/primer-paso')}>Acepté a Jesús</a></li>
-        <li><a href={ruta('/ofrendas')}>Ofrendas</a></li>
-        <li><a href={ruta('/contacto')}>Contacto</a></li>
-      </ul>
     </div>
   </div>
 </footer>
