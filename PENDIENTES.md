@@ -29,7 +29,7 @@ Recomendación de toma: celular en horizontal, luz natural para retratos, 2000 p
 - Estacionamiento: sí hay (agregado a «Cómo llegar» y a las preguntas frecuentes).
 - (31-10-2026) La reunión del viernes no tiene nombre propio: queda como «Reunión general».
 - (31-10-2026) Dominio: **iglesiatiemponuevo.cl**, inscrito en NIC Chile y administrado por Diego; DNS en Cloudflare. Sitio publicado en Cloudflare Pages (proyecto `ccint-tiempo-nuevo`).
-- (31-10-2026) Aviso del aniversario en el inicio (`aviso` en iglesia.json): sábado 5 de diciembre, con el Apóstol Billy Bunster. Falta la **hora**; se oculta solo después del 5 de diciembre.
+- (31-10-2026) Aviso del aniversario en el inicio (`aviso` en iglesia.json): sábado 5 de diciembre, con el Apóstol Billy Bunster. Hora: **19:00** (según la invitación oficial); se oculta solo después del 5 de diciembre.
 
 ### Falta
 
