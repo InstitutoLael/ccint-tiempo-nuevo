@@ -160,8 +160,8 @@
   ],
   "contacto": {
     "correo": {
-      "valor": null,
-      "_nota": "La iglesia tiene igltiemponuevo@gmail.com pero no lo usa. No publicarlo. Si algún día lo usan, ponerlo aquí y vuelve a aparecer en el sitio."
+      "valor": "info@iglesiatiemponuevo.cl",
+      "_nota": "Correo oficial de la iglesia (Google Workspace, creado el 05-11-2026)."
     },
     "_nota": "La iglesia ya no tiene WhatsApp. El contacto directo es por mensaje de Instagram o Facebook, o por correo.",
     "formulario_endpoint": null,
