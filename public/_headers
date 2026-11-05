@@ -16,6 +16,13 @@
 /guia
   X-Robots-Tag: noindex
 
+/marca/*
+  X-Robots-Tag: noindex
+  Access-Control-Allow-Origin: *
+
+/correo/*
+  X-Robots-Tag: noindex
+
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
