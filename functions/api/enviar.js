@@ -36,7 +36,7 @@ export async function onRequestPost({ request, env }) {
     const r = await fetch(env.APPS_SCRIPT_URL, {
       method: 'POST', redirect: 'follow',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...datos, clave: env.FORM_CLAVE || '' }),
+      body: JSON.stringify({ ...datos, clave: env.FORM_CLAVE || '' }), // FORM_CLAVE es opcional
     });
     const texto = await r.text();
     let res = {};

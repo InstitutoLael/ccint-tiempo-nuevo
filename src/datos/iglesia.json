@@ -166,7 +166,7 @@
       "_nota": "Correo oficial de la iglesia (Google Workspace, creado el 05-11-2026)."
     },
     "_nota": "La iglesia ya no tiene WhatsApp. El contacto directo es por mensaje de Instagram o Facebook, o por correo.",
-    "formulario_endpoint": null,
+    "formulario_endpoint": "/api/enviar?tipo=oracion",
     "_nota_formulario": "Sin servidor ni correo en uso, el formulario de oración copia la petición y abre un mensaje directo de Instagram. Si más adelante se usa Formspree o una función de Cloudflare, poner aquí la URL de envío y el formulario la usará."
   },
   "ofrendas": {
