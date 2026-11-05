@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-const paginas = ['', 'visitanos', 'en-vivo', 'nosotros', 'ministerios', 'ofrendas', 'contacto', 'primer-paso'];
+const paginas = ['', 'visitanos', 'en-vivo', 'nosotros', 'ministerios', 'ofrendas', 'contacto', 'primer-paso', 'aniversario'];
 export const GET: APIRoute = ({ site }) => {
   const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
   const urls = paginas.map((p) => `<url><loc>${new URL(base + p, site)}</loc></url>`).join('');

@@ -1,0 +1,199 @@
+---
+// Página del aniversario: datos del evento, invitado, lugar y confirmación de asistencia.
+// Se edita en iglesia.json → aniversario. El formulario envía a /api/enviar?tipo=aniversario
+// (función de Cloudflare → Apps Script de info@ → correo + planilla).
+import Base from '../layouts/Base.astro';
+import EncabezadoSeccion from '../componentes/EncabezadoSeccion.astro';
+import Mapa from '../componentes/Mapa.astro';
+import MarcaAgua from '../componentes/MarcaAgua.astro';
+import Marco from '../componentes/Marco.astro';
+import Rayos from '../componentes/Rayos.astro';
+import Foto from '../componentes/Foto.astro';
+import Icono from '../componentes/Icono.astro';
+import { iglesia, ruta, instagram, mapaUrl, wazeUrl } from '../lib/datos';
+
+const a = iglesia.aniversario;
+const d = iglesia.direccion;
+const inv = a.invitado;
+const confirmarAbierto = Date.now() <= Date.parse(a.confirmar_hasta);
+const evento = {
+  '@context': 'https://schema.org', '@type': 'Event',
+  name: `${a.titulo} 2026`, startDate: a.inicio,
+  endDate: new Date(Date.parse(a.inicio) + a.duracion_min * 60000).toISOString(),
+  eventStatus: 'https://schema.org/EventScheduled', eventAttendanceMode: 'https://schema.org/MixedEventAttendanceMode',
+  location: { '@type': 'Church', name: iglesia.nombre.marca, address: { '@type': 'PostalAddress', streetAddress: d.texto, addressLocality: d.comuna, addressRegion: iglesia.nombre.region, addressCountry: 'CL' } },
+  performer: { '@type': 'Person', name: `${inv.titulo} ${inv.nombre}` },
+  organizer: { '@type': 'Organization', name: iglesia.nombre.marca, url: 'https://iglesiatiemponuevo.cl' },
+  isAccessibleForFree: true, description: `${a.lema} (${a.lema_cita}). Con la visita del ${inv.titulo} ${inv.nombre}.`,
+};
+---
+<Base titulo="Aniversario" descripcion={`${a.fecha_texto}, ${a.hora} hrs. Celebramos un año más de ${iglesia.nombre.marca} con la visita del ${inv.titulo} ${inv.nombre}. Confirma tu asistencia.`} og="inicio" sobreNoche>
+  <script type="application/ld+json" set:html={JSON.stringify(evento)} />
+
+  <section class="seccion modo-noche portada" aria-labelledby="t-ani">
+    <Rayos />
+    <MarcaAgua />
+    <Marco />
+    <div class="wrap portada-wrap">
+      <p class="kicker rv">Aniversario · {iglesia.nombre.marca}</p>
+      <h1 class="display t-h1 rv" id="t-ani" style="--rv-i:1">La gloria <span class="contorno">del Señor</span></h1>
+      <p class="acento frase rv" style="--rv-i:2">brilla sobre ti</p>
+      <p class="cita-ref rv" style="--rv-i:3">«{a.lema_texto}» <cite>{a.lema_cita}</cite></p>
+      <dl class="ani-datos rv" style="--rv-i:4">
+        <div><dt class="micro">Cuándo</dt><dd>{a.fecha_texto}</dd></div>
+        <div><dt class="micro">Hora</dt><dd>{a.hora} hrs</dd></div>
+        <div><dt class="micro">Dónde</dt><dd>{d.texto}, {d.comuna}</dd></div>
+      </dl>
+      <div class="botones rv" style="--rv-i:5">
+        {confirmarAbierto && <a class="btn btn-primario" href="#confirmar"><Icono nombre="calendario" />Confirmar asistencia</a>}
+        <a class="btn btn-secundario" href={ruta('/calendario/aniversario.ics')} download="aniversario-tiempo-nuevo.ics">Agregar a mi calendario</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion modo-papel" aria-labelledby="t-inv">
+    <div class="wrap grilla invitado">
+      <div class="inv-foto rv">
+        <Foto archivo={inv.foto} alt={`${inv.titulo} ${inv.nombre}`} sizes="(min-width: 1024px) 40vw, 100vw" />
+      </div>
+      <div class="inv-txt">
+        <EncabezadoSeccion numero="01" kicker="Invitado especial" titulo={`${inv.titulo} ${inv.nombre}`} frase="nos visita" id="t-inv" />
+        <p class="lead rv" style="margin-top:var(--s-5)">{inv.rol}. Junto a la pastora Claudia Bunster fundaron en 1999 la familia de iglesias de la que somos parte.</p>
+        <p class="cuerpo rv" style="margin-top:var(--s-4)">Nos reciben los {a.anfitriones}, con alabanza, danza y la Palabra. Es una noche para venir con tu familia, tus amigos y quien quiera conocernos.</p>
+        <p class="cuerpo rv texto-2" style="margin-top:var(--s-4)">{a.domingo}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion modo-noche" id="lugar" aria-labelledby="t-lugar">
+    <MarcaAgua />
+    <div class="wrap grilla lugar">
+      <div class="lugar-txt">
+        <p class="kicker rv">02 · Lugar</p>
+        <h2 class="display t-h2 rv" id="t-lugar" style="--rv-i:1;margin-top:var(--s-4)">{d.texto}</h2>
+        <p class="acento frase rv" style="--rv-i:2;margin-top:var(--s-2)">{d.comuna}</p>
+        <p class="lead rv" style="margin-top:var(--s-5)">{d.como_llegar.referencia}</p>
+        <div class="botones rv" style="margin-top:var(--s-6)">
+          <a class="btn btn-primario" href={mapaUrl} target="_blank" rel="noopener"><Icono nombre="pin" />Google Maps</a>
+          <a class="btn btn-secundario" href={wazeUrl} target="_blank" rel="noopener">Waze</a>
+        </div>
+      </div>
+      <div class="lugar-mapa"><Mapa /></div>
+    </div>
+  </section>
+
+  {confirmarAbierto ? (
+    <section class="seccion modo-papel papel-2" id="confirmar" aria-labelledby="t-conf">
+      <div class="wrap grilla confirmar">
+        <div class="conf-cab">
+          <EncabezadoSeccion numero="03" kicker="Confirmación" titulo="¿Nos acompañas?" frase="cuéntanos cuántos vienen" id="t-conf" />
+          <p class="lead rv" style="margin-top:var(--s-5)">Así preparamos asientos y recibimos a cada invitado como corresponde. Si representas a una institución o autoridad, indícalo y te reservaremos un lugar.</p>
+        </div>
+        <div class="conf-form">
+          <form class="form" data-aniversario data-endpoint="/api/enviar?tipo=aniversario" method="post" action="/api/enviar?tipo=aniversario" novalidate>
+            <div class="campo">
+              <label for="a-nombre">Nombre y apellido</label>
+              <input id="a-nombre" name="nombre" type="text" autocomplete="name" required maxlength="120" aria-describedby="a-nombre-error" />
+              <p class="error" id="a-nombre-error" data-error="nombre" hidden>Escribe tu nombre.</p>
+            </div>
+            <div class="campo">
+              <label for="a-institucion">Institución o cargo <span class="ayuda">(opcional)</span></label>
+              <input id="a-institucion" name="institucion" type="text" autocomplete="organization" maxlength="160" placeholder="Por ejemplo: Municipalidad de Calera de Tango" />
+            </div>
+            <div class="fila">
+              <div class="campo">
+                <label for="a-correo">Correo</label>
+                <input id="a-correo" name="correo" type="email" autocomplete="email" required maxlength="160" aria-describedby="a-correo-error" />
+                <p class="error" id="a-correo-error" data-error="correo" hidden>Escribe un correo válido.</p>
+              </div>
+              <div class="campo">
+                <label for="a-telefono">Teléfono <span class="ayuda">(opcional)</span></label>
+                <input id="a-telefono" name="telefono" type="tel" autocomplete="tel" maxlength="30" />
+              </div>
+            </div>
+            <div class="campo">
+              <label for="a-asistentes">¿Cuántas personas vienen, contándote?</label>
+              <input id="a-asistentes" name="asistentes" type="number" inputmode="numeric" min="1" max="30" value="1" required />
+            </div>
+            <div class="campo">
+              <label for="a-mensaje">Mensaje <span class="ayuda">(opcional)</span></label>
+              <textarea id="a-mensaje" name="mensaje" maxlength="600" rows="3"></textarea>
+            </div>
+            <div class="trampa" aria-hidden="true"><label for="a-sitio">No llenar</label><input id="a-sitio" name="sitio_web" type="text" tabindex="-1" autocomplete="off" /></div>
+            <div class="botones">
+              <button class="btn btn-primario" type="submit"><span>Confirmar asistencia</span></button>
+            </div>
+            <p class="estado" role="status" data-estado-form></p>
+            <p class="privacidad">Usamos tus datos solo para organizar el aniversario y enviarte la confirmación. No los compartimos con nadie.</p>
+          </form>
+          <div class="exito" data-aniversario-exito tabindex="-1" hidden>
+            <p class="display t-h1">¡Gracias!</p>
+            <p class="acento frase">te esperamos el sábado</p>
+            <p class="cuerpo" style="margin-top:var(--s-4)">Te enviamos un correo con los detalles. Si necesitas algo, escríbenos a <a class="enlace" href="mailto:info@iglesiatiemponuevo.cl">info@iglesiatiemponuevo.cl</a>.</p>
+          </div>
+          <p class="alterno" data-alterno hidden>¿No funcionó? Escríbenos a <a class="enlace" href="mailto:info@iglesiatiemponuevo.cl?subject=Confirmación%20aniversario">info@iglesiatiemponuevo.cl</a> o por <a class="enlace" href={instagram.mensaje_url} target="_blank" rel="noopener">Instagram</a>.</p>
+        </div>
+      </div>
+    </section>
+  ) : null}
+
+  <section class="seccion modo-noche cierre" aria-labelledby="t-cierre">
+    <Rayos />
+    <MarcaAgua />
+    <Marco />
+    <div class="wrap encabezado centro">
+      <h2 class="display t-h1 rv" id="t-cierre">Te esperamos <span class="contorno">el {a.fecha_texto.split(' de 2026')[0].toLowerCase()}</span></h2>
+      <p class="acento frase rv" style="--rv-i:1">a las {a.hora}, aquí hay lugar para ti</p>
+      <div class="botones rv" style="--rv-i:2;justify-content:center;margin-top:var(--s-6)">
+        <a class="btn btn-primario" href={ruta('/calendario/aniversario.ics')} download="aniversario-tiempo-nuevo.ics"><Icono nombre="calendario" />Agregar a mi calendario</a>
+        <a class="btn btn-secundario" href={ruta('/visitanos')}>Visítanos</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .portada { min-height: 92vh; display: grid; align-items: end; padding-top: calc(var(--seccion-y) + 5rem); }
+  .portada-wrap { display: grid; gap: var(--s-4); }
+  .portada h1 { max-width: 14ch; }
+  .cita-ref { color: var(--tn-niebla); max-width: 36rem; font-size: var(--t-sm); }
+  .cita-ref cite { font-style: normal; color: var(--tn-celeste); font-weight: 700; margin-left: .25em; }
+  .ani-datos { display: grid; gap: var(--s-4); margin-top: var(--s-5); padding-top: var(--s-5); border-top: 1px solid rgba(255,255,255,.16); }
+  .ani-datos dt { color: var(--tn-celeste); }
+  .ani-datos dd { color: var(--tn-blanco); font-weight: 700; font-size: 1.125rem; margin-top: var(--s-1); }
+  .portada .botones { margin-top: var(--s-5); }
+  @media (min-width: 768px) { .ani-datos { grid-template-columns: repeat(3, auto); justify-content: start; column-gap: var(--s-8); } }
+
+  .invitado, .lugar, .confirmar { row-gap: var(--s-7); align-items: center; }
+  .inv-foto :global(.foto), .inv-foto :global(.foto-pendiente) { aspect-ratio: 4 / 5; border-radius: var(--r-lg); overflow: hidden; }
+  .inv-foto :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  @media (min-width: 1024px) {
+    .inv-foto { grid-column: 1 / span 5; }
+    .inv-txt { grid-column: 7 / span 6; }
+    .lugar-txt { grid-column: 1 / span 5; }
+    .lugar-mapa { grid-column: 6 / span 7; }
+    .conf-cab { grid-column: 1 / span 5; align-self: start; position: sticky; top: 7rem; }
+    .conf-form { grid-column: 7 / span 6; }
+  }
+  .lugar h2 { overflow-wrap: anywhere; }
+  .lugar .lead { color: var(--tn-niebla); }
+
+  .confirmar { align-items: start; }
+  .form { display: grid; gap: var(--s-5); }
+  .fila { display: grid; gap: var(--s-5); align-items: start; }
+  @media (min-width: 640px) { .fila { grid-template-columns: 1fr 1fr; } }
+  .confirmar :global(.campo input), .confirmar :global(.campo textarea) {
+    background: var(--tn-blanco); color: var(--tn-tinta); border: 1px solid var(--tn-linea-p);
+    box-shadow: inset 0 1px 2px rgba(20, 40, 80, .05);
+  }
+  .confirmar :global(.campo input::placeholder) { color: var(--tn-gris); opacity: .7; }
+  .confirmar :global(.campo input:hover), .confirmar :global(.campo textarea:hover) { border-color: var(--tn-azul); }
+  .confirmar :global(.campo .error) { color: #B3261E; }
+  .confirmar :global(.campo [aria-invalid="true"]) { border-color: #B3261E; box-shadow: inset 0 0 0 1px #B3261E; }
+  .campo input[type="number"] { max-width: 8rem; }
+  .estado { color: var(--tn-azul-tinta); font-weight: 700; min-height: 1.5em; }
+  .privacidad, .alterno { font-size: var(--t-sm); color: var(--texto-2); max-width: 34rem; }
+  .exito { padding: var(--s-7) 0; }
+  .exito .display { color: var(--tn-logo); }
+  .cierre { padding-block: calc(var(--seccion-y) * 1.2); }
+</style>

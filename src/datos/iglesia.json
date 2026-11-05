@@ -127,7 +127,9 @@
     "fecha": "Sábado 5 de diciembre",
     "hora": "19:00",
     "texto": "Con la visita del Apóstol Billy Bunster. «La gloria del Señor brilla sobre ti» (Isaías 60:1). Te esperamos.",
-    "hasta": "2026-12-05T23:59:00-03:00"
+    "hasta": "2026-12-05T23:59:00-03:00",
+    "enlace": "/aniversario",
+    "enlace_texto": "Ver detalles y confirmar asistencia"
   },
   "duracion_culto": "Cerca de dos horas y media",
   "zona_horaria": "America/Santiago",
@@ -379,5 +381,26 @@
       "confirmar": true,
       "_nota": "Sugerencias: tiemponuevo.cl · ccinttiemponuevo.cl (registrar en NIC Chile)"
     }
+  },
+  "aniversario": {
+    "_nota": "Página /aniversario. El formulario de confirmación envía a info@ y guarda en la planilla «Aniversario 2026 · Confirmaciones» (Drive de la iglesia).",
+    "titulo": "Aniversario Tiempo Nuevo",
+    "lema": "La gloria del Señor brilla sobre ti",
+    "lema_cita": "Isaías 60:1",
+    "lema_texto": "¡Levántate y resplandece, que tu luz ha llegado! ¡La gloria del Señor brilla sobre ti!",
+    "fecha_texto": "Sábado 5 de diciembre de 2026",
+    "hora": "19:00",
+    "inicio": "2026-12-05T19:00:00-03:00",
+    "duracion_min": 150,
+    "invitado": {
+      "titulo": "Apóstol",
+      "nombre": "Billy Bunster",
+      "rol": "Pastor general de Centro Cristiano Internacional",
+      "foto": "apostol-billy-bunster.jpg"
+    },
+    "anfitriones": "Pastores David Núñez A. y Rosita Jara C.",
+    "domingo": "El domingo 6 de diciembre seguimos celebrando en familia en el culto de las 10:30.",
+    "confirmar_hasta": "2026-12-03T23:59:00-03:00",
+    "transmite": true
   }
 }

@@ -191,3 +191,45 @@ $$('[data-hasta]').forEach((el) => {
   const hasta = Date.parse(el.dataset.hasta ?? '');
   if (hasta && Date.now() > hasta) el.hidden = true;
 });
+
+/* ---------- Confirmación del aniversario ---------- */
+const rsvp = document.querySelector<HTMLFormElement>('[data-aniversario]');
+if (rsvp) {
+  const estado = rsvp.querySelector<HTMLElement>('[data-estado-form]')!;
+  const boton = rsvp.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+  const exito = document.querySelector<HTMLElement>('[data-aniversario-exito]');
+  const alterno = document.querySelector<HTMLElement>('[data-alterno]');
+  const reglas: Record<string, (v: string) => boolean> = {
+    nombre: (v) => v.trim().length > 1,
+    correo: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
+  };
+  const validar = (nombre: string, mostrar: boolean) => {
+    const campo = rsvp.elements.namedItem(nombre) as HTMLInputElement;
+    const ok = reglas[nombre](campo.value);
+    const err = rsvp.querySelector<HTMLElement>(`[data-error="${nombre}"]`);
+    if (ok) { campo.removeAttribute('aria-invalid'); if (err) err.hidden = true; }
+    else if (mostrar) { campo.setAttribute('aria-invalid', 'true'); if (err) err.hidden = false; }
+    return ok ? null : campo;
+  };
+  Object.keys(reglas).forEach((n) => (rsvp.elements.namedItem(n) as HTMLInputElement)
+    .addEventListener('input', () => validar(n, false)));
+  rsvp.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const malos = Object.keys(reglas).map((n) => validar(n, true)).filter(Boolean) as HTMLInputElement[];
+    if (malos.length) { malos[0].focus(); return; }
+    if ((rsvp.elements.namedItem('sitio_web') as HTMLInputElement)?.value) return;
+    boton.disabled = true; boton.dataset.enviando = '';
+    estado.textContent = 'Enviando confirmación…';
+    try {
+      const r = await fetch(rsvp.dataset.endpoint!, { method: 'POST', body: new FormData(rsvp), headers: { Accept: 'application/json' } });
+      if (!r.ok) throw new Error();
+      rsvp.hidden = true;
+      if (exito) { exito.hidden = false; exito.focus(); }
+    } catch {
+      estado.textContent = 'No pudimos enviar tu confirmación. Intenta otra vez en un momento.';
+      if (alterno) alterno.hidden = false;
+    } finally {
+      boton.disabled = false; delete boton.dataset.enviando;
+    }
+  });
+}

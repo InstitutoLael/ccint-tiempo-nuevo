@@ -1,7 +1,7 @@
 ---
 // Aviso breve en el inicio (por ejemplo, el aniversario). Se edita en iglesia.json → aviso.
 // No se muestra si "activo" es false o si ya pasó la fecha de "hasta" (al compilar y en el navegador).
-import { iglesia } from '../lib/datos';
+import { iglesia, ruta } from '../lib/datos';
 import Icono from './Icono.astro';
 
 const a = iglesia.aviso;
@@ -14,6 +14,7 @@ const vigente = a && a.activo && Date.now() <= Date.parse(a.hasta);
       <p class="display t-h3 aviso-titulo">{a.titulo}</p>
       <p class="aviso-fecha"><Icono nombre="calendario" />{a.fecha}{a.hora && ` · ${a.hora} hrs`}</p>
       <p class="aviso-texto">{a.texto}</p>
+      {a.enlace && <p class="aviso-enlace"><a class="enlace" href={ruta(a.enlace)}>{a.enlace_texto}<Icono nombre="flecha" class="icono-mini" /></a></p>}
     </div>
   </aside>
 )}
@@ -34,6 +35,10 @@ const vigente = a && a.activo && Date.now() <= Date.parse(a.hasta);
   .aviso-fecha { display: flex; align-items: center; gap: var(--s-2); font-weight: 600; color: var(--tn-tinta); }
   .aviso-fecha :global(svg) { color: var(--tn-azul-tinta); }
   .aviso-texto { color: var(--tn-gris); max-width: 42rem; }
+  .aviso-enlace { font-weight: 700; margin-top: var(--s-1); }
+  .aviso-enlace a { display: inline-flex; align-items: center; gap: var(--s-2); }
+  .aviso-enlace :global(svg) { width: 1rem; height: 1rem; flex: none; transition: transform var(--d-base) var(--e-salida); }
+  .aviso-enlace a:hover :global(svg) { transform: translateX(3px); }
   @media (min-width: 1024px) {
     .aviso { grid-template-columns: 12rem 1fr; align-items: start; gap: var(--s-6); padding: var(--s-6); }
     .aviso .kicker { margin-top: .35rem; }
